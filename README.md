@@ -1,1 +1,1 @@
-crazyafk.github.io
+(https://crazyafk.github.io/DaccadusSpellLister/)
