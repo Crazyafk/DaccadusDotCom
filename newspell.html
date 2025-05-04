@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <script src="build\main.js"></script>
+</head>
+<body>
+    <form>
+        <h3>Spell Name</h3>
+        <textarea id="name" name="name"></textarea><br>
+        <h3>Spell Level</h3><br>
+        Cantrip<input type="radio" id="cantrip" name="level" value="cantrip"></input>
+        1st<input type="radio" id="1st" name="level" value="1st"></input>
+        2nd<input type="radio" id="2nd" name="level" value="2nd"></input>
+        3rd<input type="radio" id="3rd" name="level" value="3rd"></input>
+        4th<input type="radio" id="4th" name="level" value="4th"></input>
+        5th<input type="radio" id="5th" name="level" value="5th"></input>
+        6th<input type="radio" id="6th" name="level" value="6th"></input>
+        7th<input type="radio" id="7th" name="level" value="7th"></input>
+        8th<input type="radio" id="8th" name="level" value="8th"></input>
+        9th<input type="radio" id="9th" name="level" value="9th"></input>
+        <h3>Spell Schools</h3><br>
+        Abjuration<input type="checkbox" id="abjuration" name="school" value="abjuration"></input>
+        Arcanomancy<input type="checkbox" id="arcanomancy" name="school" value="arcanomancy"></input>
+        Astromancy<input type="checkbox" id="astromancy" name="school" value="astromancy"></input>
+        Conjuration<input type="checkbox" id="conjuration" name="school" value="conjuration"></input>
+        Chronurgy<input type="checkbox" id="chronurgy" name="school" value="chronurgy"></input>
+        Divination<input type="checkbox" id="divination" name="school" value="divination"></input>
+        Enchantment<input type="checkbox" id="enchantment" name="school" value="enchantment"></input>
+        Evocation<input type="checkbox" id="evocation" name="school" value="evocation"></input>
+        Haemocraft<input type="checkbox" id="haemocraft" name="school" value="haemocraft"></input>
+        Illusion<input type="checkbox" id="illusion" name="school" value="illusion"></input>
+        Mythcraft<input type="checkbox" id="mythcraft" name="school" value="mythcraft"></input>
+        Necromancy<input type="checkbox" id="necromancy" name="school" value="necromancy"></input>
+        Technomancy<input type="checkbox" id="technomancy" name="school" value="technomancy"></input>
+        Transmutation<input type="checkbox" id="transmutation" name="school" value="transmutation"></input>
+        <h3>Casting Time</h3>
+        <textarea id="castingtime" name="castingtime"></textarea><br>
+        <h3>Range</h3>
+        <textarea id="range" name="range"></textarea><br>
+        <h3>Duration</h3>
+        <textarea id="duration" name="duration"></textarea><br>
+        <h3>Concentration</h3>
+        None<input type="radio" id="none" name="concentration" value="none"></input>
+        Half<input type="radio" id="half" name="concentration" value="half"></input>
+        Full<input type="radio" id="full" name="concentration" value="full"></input>
+        <h3>Components</h3>
+        F<input type="checkbox" id="f" name="components" value="f"></input>
+        F.eq<input type="checkbox" id="feq" name="components" value="feq"></input>
+        V<input type="checkbox" id="v" name="components" value="v"></input>
+        S<input type="checkbox" id="s" name="components" value="s"></input>
+        S.2<input type="checkbox" id="s2" name="components" value="s2"></input>
+        M<input type="checkbox" id="m" name="components" value="m"></input>
+        M.c<input type="checkbox" id="mc" name="components" value="mc"></input>
+        <p>If M or M.c selected, please describe:</p><textarea id="componentdesc" name="componentdesc"></textarea><br>
+        <h3>Spell Description</h3>
+        <textarea id="description" name="description" style="width: 80vw; height: 200px;"></textarea><br>
+        <h3>Spell Lists</h3>
+        Artificer<input type="checkbox" id="artificer" name="lists" value="artificer"></input>
+        Bloodbound<input type="checkbox" id="bloodbound" name="lists" value="bloodbound"></input>
+        Cleric<input type="checkbox" id="cleric" name="lists" value="cleric"></input>
+        Paladin<input type="checkbox" id="paladin" name="lists" value="paladin"></input>
+        Psycaster<input type="checkbox" id="psycaster" name="lists" value="psycaster"></input>
+        Spell-Sword<input type="checkbox" id="spellsword" name="lists" value="spellsword"></input>
+        Wizard<input type="checkbox" id="wizard" name="lists" value="wizard"></input>
+        <br><br><input type="submit"></input>
+    </form>
+</body>
