@@ -1,4 +1,5 @@
 "use strict";
+console.log("test console");
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("#form");
     if (form) {
