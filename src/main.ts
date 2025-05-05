@@ -16,22 +16,23 @@ class Spell
 {
     level: number
     name: string
-    school: SpellSchool
+    schools: SpellSchool[] = []
     description: string
     lists: SpellList[] = []
     castingtime: string
     components: SpellComponent[] = []
+    componentdesc: string
     concentration: Concentration
     range: string
     duration: string
 
-    constructor(level: number, name: string, school: SpellSchool, description: string, 
+    constructor(level: number, name: string, school: SpellSchool[], description: string, 
         lists: SpellList[], castingtime: string, components: SpellComponent[],
-        concentration: Concentration, range: string, duration: string)
+        concentration: Concentration, range: string, duration: string, componentdesc: string)
     {
         this.level = level
         this.name = name
-        this.school = school
+        this.schools = school
         this.description = description
         this.lists = lists
         this.castingtime = castingtime
@@ -39,6 +40,7 @@ class Spell
         this.concentration = concentration
         this.range = range
         this.duration = duration
+        this.componentdesc = componentdesc
     }
 }
 function buttonclick()
