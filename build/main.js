@@ -43,12 +43,13 @@ var Concentration;
     Concentration[Concentration["Full"] = 2] = "Full";
 })(Concentration || (Concentration = {}));
 class Spell {
-    constructor(level, name, school, description, lists, castingtime, components, concentration, range, duration) {
+    constructor(level, name, school, description, lists, castingtime, components, concentration, range, duration, componentdesc) {
+        this.schools = [];
         this.lists = [];
         this.components = [];
         this.level = level;
         this.name = name;
-        this.school = school;
+        this.schools = school;
         this.description = description;
         this.lists = lists;
         this.castingtime = castingtime;
@@ -56,6 +57,7 @@ class Spell {
         this.concentration = concentration;
         this.range = range;
         this.duration = duration;
+        this.componentdesc = componentdesc;
     }
 }
 function buttonclick() {
