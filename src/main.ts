@@ -1,18 +1,18 @@
-enum SpellSchool{
+export enum SpellSchool{
     Abjuration, Arcanomancy, Astromancy, Conjuration, Chronurgy, Divination, 
     Enchantment, Evocation, Haemocraft, Illusion, Mythcraft,
     Necromancy, Technomancy, Transmutation
 }
-enum SpellList{
+export enum SpellList{
     Artificer, Bloodbound, Cleric, Paladin, Psycaster, SpellSword, Wizard
 }
-enum SpellComponent{
+export enum SpellComponent{
     F, Feq, V, S, S2, M, Mc
 }
-enum Concentration{
+export enum Concentration{
     None, Half, Full
 }
-class Spell
+export class Spell
 {
     level: number
     name: string
@@ -26,13 +26,13 @@ class Spell
     range: string
     duration: string
 
-    constructor(level: number, name: string, school: SpellSchool[], description: string, 
+    constructor(level: number, name: string, schools: SpellSchool[], description: string, 
         lists: SpellList[], castingtime: string, components: SpellComponent[],
         concentration: Concentration, range: string, duration: string, componentdesc: string)
     {
         this.level = level
         this.name = name
-        this.schools = school
+        this.schools = schools
         this.description = description
         this.lists = lists
         this.castingtime = castingtime

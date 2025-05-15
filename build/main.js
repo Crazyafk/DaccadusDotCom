@@ -1,5 +1,4 @@
-"use strict";
-var SpellSchool;
+export var SpellSchool;
 (function (SpellSchool) {
     SpellSchool[SpellSchool["Abjuration"] = 0] = "Abjuration";
     SpellSchool[SpellSchool["Arcanomancy"] = 1] = "Arcanomancy";
@@ -16,7 +15,7 @@ var SpellSchool;
     SpellSchool[SpellSchool["Technomancy"] = 12] = "Technomancy";
     SpellSchool[SpellSchool["Transmutation"] = 13] = "Transmutation";
 })(SpellSchool || (SpellSchool = {}));
-var SpellList;
+export var SpellList;
 (function (SpellList) {
     SpellList[SpellList["Artificer"] = 0] = "Artificer";
     SpellList[SpellList["Bloodbound"] = 1] = "Bloodbound";
@@ -26,7 +25,7 @@ var SpellList;
     SpellList[SpellList["SpellSword"] = 5] = "SpellSword";
     SpellList[SpellList["Wizard"] = 6] = "Wizard";
 })(SpellList || (SpellList = {}));
-var SpellComponent;
+export var SpellComponent;
 (function (SpellComponent) {
     SpellComponent[SpellComponent["F"] = 0] = "F";
     SpellComponent[SpellComponent["Feq"] = 1] = "Feq";
@@ -36,20 +35,20 @@ var SpellComponent;
     SpellComponent[SpellComponent["M"] = 5] = "M";
     SpellComponent[SpellComponent["Mc"] = 6] = "Mc";
 })(SpellComponent || (SpellComponent = {}));
-var Concentration;
+export var Concentration;
 (function (Concentration) {
     Concentration[Concentration["None"] = 0] = "None";
     Concentration[Concentration["Half"] = 1] = "Half";
     Concentration[Concentration["Full"] = 2] = "Full";
 })(Concentration || (Concentration = {}));
-class Spell {
-    constructor(level, name, school, description, lists, castingtime, components, concentration, range, duration, componentdesc) {
+export class Spell {
+    constructor(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc) {
         this.schools = [];
         this.lists = [];
         this.components = [];
         this.level = level;
         this.name = name;
-        this.schools = school;
+        this.schools = schools;
         this.description = description;
         this.lists = lists;
         this.castingtime = castingtime;
