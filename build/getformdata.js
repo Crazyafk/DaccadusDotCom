@@ -1,4 +1,4 @@
-import { Spell } from './main';
+import { Spell } from './main.js';
 function onLoad() {
     console.log("getformdata onLoad called");
     document.addEventListener("DOMContentLoaded", () => {
@@ -28,3 +28,4 @@ function getSpell(data) {
     const spell = new Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc);
     console.log(spell);
 }
+onLoad();
