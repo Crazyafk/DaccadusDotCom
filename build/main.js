@@ -1,3 +1,4 @@
+var _a;
 export var SpellSchool;
 (function (SpellSchool) {
     SpellSchool[SpellSchool["Abjuration"] = 0] = "Abjuration";
@@ -59,7 +60,7 @@ export class Spell {
         this.componentdesc = componentdesc;
     }
 }
-function buttonclick() {
+export function buttonclick() {
     printToResult("Hello World!");
 }
 function printToResult(text) {
@@ -68,3 +69,4 @@ function printToResult(text) {
         result.innerHTML = text;
     }
 }
+(_a = document.querySelector("#testbutton")) === null || _a === void 0 ? void 0 : _a.addEventListener('click', buttonclick);

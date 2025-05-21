@@ -43,7 +43,7 @@ export class Spell
         this.componentdesc = componentdesc
     }
 }
-function buttonclick()
+export function buttonclick()
 {
     printToResult("Hello World!");
 }
@@ -52,3 +52,4 @@ function printToResult(text: string)
     let result = document.getElementById("result")
     if(result){result.innerHTML=text}
 }
+document.querySelector("#testbutton")?.addEventListener('click', buttonclick);
