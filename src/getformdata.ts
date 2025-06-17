@@ -1,4 +1,4 @@
-import { SpellSchool, Concentration, SpellComponent, SpellList, Spell } from './main.js';
+import { SpellSchool, Concentration, SpellComponent, SpellList, Spell } from './main';
 
 function onLoad(){    
     console.log("getformdata onLoad called");

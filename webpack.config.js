@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: {
+    index: './src/main.ts',
+    addspell: './src/getformdata.ts'
+  },
   module: {
     rules: [
       {
@@ -13,9 +16,13 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    fallback: {
+        "fs": false
+    }
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
+  mode: 'none'
 };
