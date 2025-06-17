@@ -9,11 +9,11 @@ function onLoad(){
                 event.preventDefault()
                 const formData = new FormData(form)
                 console.log(formData)
-                getSpell(formData)
+                writeObject(getSpell(formData))
             })
     }})}
 
-function getSpell(data: FormData){
+function getSpell(data: FormData): Spell{
     const name = data.get("name") as string
     const level = data.get("level") as string as unknown as number
     const schools = data.getAll("school") as string[] as unknown[] as SpellSchool[]
@@ -29,6 +29,21 @@ function getSpell(data: FormData){
     const spell = new Spell(level, name, schools, description, lists, castingtime, components,
         concentration, range, duration, componentdesc)
     console.log(spell);
+
+    return spell;
+}
+
+function writeObject(obj: Spell){
+    let objJson = JSON.stringify(obj);
+    const fs = require("fs");
+
+    fs.writeFile('test.json', objJson, (err: any) => {
+    if (err) {
+        console.log('Error writing file:', err);
+    } else {
+        console.log('Successfully wrote file');
+    }
+});
 }
 
 onLoad();
