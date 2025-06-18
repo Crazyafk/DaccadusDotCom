@@ -1,9 +1,9 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
 /* 0 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Concentration: () => (/* binding */ Concentration),
@@ -89,13 +89,6 @@ function printToResult(text) {
 (_a = document.querySelector("#testbutton")) === null || _a === void 0 ? void 0 : _a.addEventListener('click', buttonclick);
 
 
-/***/ }),
-/* 1 */,
-/* 2 */
-/***/ (() => {
-
-/* (ignored) */
-
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -154,9 +147,8 @@ function printToResult(text) {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 
@@ -169,7 +161,8 @@ function onLoad() {
                 event.preventDefault();
                 var formData = new FormData(form);
                 console.log(formData);
-                writeObject(getSpell(formData));
+                var spell = getSpell(formData);
+                downloadObjectAsJson(spell, spell.name);
             });
         }
     });
@@ -190,17 +183,16 @@ function getSpell(data) {
     console.log(spell);
     return spell;
 }
-function writeObject(obj) {
-    var objJson = JSON.stringify(obj);
-    var fs = __webpack_require__(2);
-    fs.writeFile('test.json', objJson, function (err) {
-        if (err) {
-            console.log('Error writing file:', err);
-        }
-        else {
-            console.log('Successfully wrote file');
-        }
-    });
+// Initiates download of given object as a JSON in the client's browser.
+// Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
+function downloadObjectAsJson(exportObj, exportName) {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
 }
 onLoad();
 

@@ -9,7 +9,8 @@ function onLoad(){
                 event.preventDefault()
                 const formData = new FormData(form)
                 console.log(formData)
-                writeObject(getSpell(formData))
+                const spell = getSpell(formData);
+                downloadObjectAsJson(spell, spell.name);
             })
     }})}
 
@@ -33,17 +34,16 @@ function getSpell(data: FormData): Spell{
     return spell;
 }
 
-function writeObject(obj: Spell){
-    let objJson = JSON.stringify(obj);
-    const fs = require("fs");
-
-    fs.writeFile('test.json', objJson, (err: any) => {
-    if (err) {
-        console.log('Error writing file:', err);
-    } else {
-        console.log('Successfully wrote file');
-    }
-});
+// Initiates download of given object as a JSON in the client's browser.
+// Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
+function downloadObjectAsJson(exportObj: any, exportName: string){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
 }
 
 onLoad();
