@@ -42,10 +42,41 @@ export class Spell
         this.duration = duration
         this.componentdesc = componentdesc
     }
+
+    static async readAll()
+    {
+        const dir = './data/spells'
+        let example_spell = await fetch("../data/spells/A Fresh Point of View.json")
+        let output = JSON.parse(await example_spell.text()) as Spell;
+
+        console.log("read spells");
+        console.log(output);
+
+        return output;
+    }
+    // Adapted from https://stackoverflow.com/a/77835274 
+    static async getDirectory(dirname: string) {
+        let response = await fetch(dirname);
+        let str = await response.text();
+        let el = document.createElement('html');
+        el.innerHTML = str;
+
+        // this parse will work for http-server and may have to be modified for other
+        // servers. Inspect the returned string to determine the proper parsing method
+        let list = el.getElementsByTagName("table")[0].getElementsByTagName("a");
+        let arr = [];
+        for (let i = 0; i < list.length; i++) {
+            arr[i] = list[i].innerHTML;
+        }
+        arr.shift(); // get rid of first result which is the "../" directory reference
+        console.log(arr); // this is your list of files (or directories ending in "/")
+        return(arr);
+    }
 }
 export function buttonclick()
 {
     printToResult("Hello World!");
+    Spell.readAll();
 }
 function printToResult(text: string)
 {
