@@ -6,14 +6,15 @@ on:
 jobs:
     Index-Spells:
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./data/spells
         steps:
             - name: checkout repo
               uses: actions/checkout@v4
               with:
                 persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
                 fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-            - name: cd into directory
-              run: cd ${{ github.workspace }}/data/spells/
             - name: index files
               run: ls >> index.html
             - name: commit
