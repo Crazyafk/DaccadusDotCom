@@ -45,11 +45,14 @@ export class Spell
 
     static async readAll(): Promise<Spell[]>
     {
-        const dir = '../data/spells'
-        let file_list = await this.getDirectory(dir)
+        const dir = '../data/spells/'
+        let index = await (await fetch(dir+'index.html')).text();
+        let file_list = index.split('\n');
         let output: Spell[] = []
 
-        for(var file of file_list){
+        for(var file_raw of file_list){
+            let file = file_raw.replace(/[\r\n]+/gm, ""); //Trim \r
+            if(file == "index.html" || file == ""){break;} //Remove invalid entries from list
             let spell_result = await fetch(dir+file)
             let spell = JSON.parse(await spell_result.text()) as Spell;
             output.push(spell);
@@ -59,25 +62,6 @@ export class Spell
         console.log(output);
 
         return output;
-    }
-    // Adapted from https://stackoverflow.com/a/77835274 
-    static async getDirectory(dirname: string): Promise<string[]> {
-        let response = await fetch(dirname);
-        let str = await response.text();
-        let el = document.createElement('html');
-        el.innerHTML = str;
-        console.log("directory fetch text:\n"+str);
-
-        // this parse will work for http-server and may have to be modified for other
-        // servers. Inspect the returned string to determine the proper parsing method
-        let list = el.getElementsByTagName("table")[0].getElementsByTagName("a");
-        let arr = [];
-        for (let i = 0; i < list.length; i++) {
-            arr[i] = list[i].innerHTML;
-        }
-        arr.shift(); // get rid of first result which is the "../" directory reference
-        console.log(arr); // this is your list of files (or directories ending in "/")
-        return(arr);
     }
 }
 export function buttonclick()

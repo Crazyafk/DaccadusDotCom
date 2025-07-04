@@ -142,63 +142,42 @@ var Spell = /** @class */ (function () {
     }
     Spell.readAll = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var dir, file_list, output, _i, file_list_1, file, spell_result, spell, _a, _b;
+            var dir, index, file_list, output, _i, file_list_1, file_raw, file, spell_result, spell, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        dir = '../data/spells';
-                        return [4 /*yield*/, this.getDirectory(dir)];
-                    case 1:
-                        file_list = _c.sent();
+                        dir = '../data/spells/';
+                        return [4 /*yield*/, fetch(dir + 'index.html')];
+                    case 1: return [4 /*yield*/, (_c.sent()).text()];
+                    case 2:
+                        index = _c.sent();
+                        file_list = index.split('\n');
                         output = [];
                         _i = 0, file_list_1 = file_list;
-                        _c.label = 2;
-                    case 2:
-                        if (!(_i < file_list_1.length)) return [3 /*break*/, 6];
-                        file = file_list_1[_i];
-                        return [4 /*yield*/, fetch(dir + file)];
+                        _c.label = 3;
                     case 3:
+                        if (!(_i < file_list_1.length)) return [3 /*break*/, 7];
+                        file_raw = file_list_1[_i];
+                        file = file_raw.replace(/[\r\n]+/gm, "");
+                        if (file == "index.html" || file == "") {
+                            return [3 /*break*/, 7];
+                        } //Remove invalid entries from list
+                        return [4 /*yield*/, fetch(dir + file)];
+                    case 4:
                         spell_result = _c.sent();
                         _b = (_a = JSON).parse;
                         return [4 /*yield*/, spell_result.text()];
-                    case 4:
+                    case 5:
                         spell = _b.apply(_a, [_c.sent()]);
                         output.push(spell);
-                        _c.label = 5;
-                    case 5:
-                        _i++;
-                        return [3 /*break*/, 2];
+                        _c.label = 6;
                     case 6:
+                        _i++;
+                        return [3 /*break*/, 3];
+                    case 7:
                         console.log("read spells");
                         console.log(output);
                         return [2 /*return*/, output];
-                }
-            });
-        });
-    };
-    // Adapted from https://stackoverflow.com/a/77835274 
-    Spell.getDirectory = function (dirname) {
-        return __awaiter(this, void 0, void 0, function () {
-            var response, str, el, list, arr, i;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, fetch(dirname)];
-                    case 1:
-                        response = _a.sent();
-                        return [4 /*yield*/, response.text()];
-                    case 2:
-                        str = _a.sent();
-                        el = document.createElement('html');
-                        el.innerHTML = str;
-                        console.log("directory fetch text:\n" + str);
-                        list = el.getElementsByTagName("table")[0].getElementsByTagName("a");
-                        arr = [];
-                        for (i = 0; i < list.length; i++) {
-                            arr[i] = list[i].innerHTML;
-                        }
-                        arr.shift(); // get rid of first result which is the "../" directory reference
-                        console.log(arr); // this is your list of files (or directories ending in "/")
-                        return [2 /*return*/, (arr)];
                 }
             });
         });
