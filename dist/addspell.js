@@ -109,6 +109,22 @@ var Spell = /** @class */ (function () {
         this.duration = duration;
         this.componentdesc = componentdesc;
     }
+    Spell.fromFormData = function (data) {
+        var name = data.get("name");
+        var level = data.get("level");
+        var schools = data.getAll("school");
+        var castingtime = data.get("castingtime");
+        var range = data.get("range");
+        var duration = data.get("duration");
+        var concentration = data.get("concentration");
+        var components = data.getAll("components");
+        var componentdesc = data.get("componentdesc");
+        var description = data.get("description");
+        var lists = data.getAll("lists");
+        var spell = new Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc);
+        console.log(spell);
+        return spell;
+    };
     Spell.readAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             var dir, index, file_list, output, _i, file_list_1, file_raw, file, spell_result, spell, _a, _b;
@@ -228,27 +244,11 @@ function onLoad() {
                 event.preventDefault();
                 var formData = new FormData(form);
                 console.log(formData);
-                var spell = getSpell(formData);
+                var spell = _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.fromFormData(formData);
                 downloadObjectAsJson(spell, spell.name);
             });
         }
     });
-}
-function getSpell(data) {
-    var name = data.get("name");
-    var level = data.get("level");
-    var schools = data.getAll("school");
-    var castingtime = data.get("castingtime");
-    var range = data.get("range");
-    var duration = data.get("duration");
-    var concentration = data.get("concentration");
-    var components = data.getAll("components");
-    var componentdesc = data.get("componentdesc");
-    var description = data.get("description");
-    var lists = data.getAll("lists");
-    var spell = new _spell__WEBPACK_IMPORTED_MODULE_0__.Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc);
-    console.log(spell);
-    return spell;
 }
 // Initiates download of given object as a JSON in the client's browser.
 // Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
