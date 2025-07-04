@@ -4,6 +4,9 @@ jobs:
     Index-Spells:
         runs-on: ubuntu-latest
         steps:
-            - run: cd data/spells/
-            - run: ls >> index.html
-            - run: cd ../../
+            - name: checkout repo
+              uses: actions/checkout@v4
+            - name: cd into directory
+              run: cd ${{ github.workspace }}/data/spells/
+            - name: index files
+              run: ls >> index.html
