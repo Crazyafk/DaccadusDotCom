@@ -1,7 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
-/* 0 */
+/* 0 */,
+/* 1 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -10,8 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Spell: () => (/* binding */ Spell),
 /* harmony export */   SpellComponent: () => (/* binding */ SpellComponent),
 /* harmony export */   SpellList: () => (/* binding */ SpellList),
-/* harmony export */   SpellSchool: () => (/* binding */ SpellSchool),
-/* harmony export */   buttonclick: () => (/* binding */ buttonclick)
+/* harmony export */   SpellSchool: () => (/* binding */ SpellSchool)
 /* harmony export */ });
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -49,7 +49,6 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a;
 var SpellSchool;
 (function (SpellSchool) {
     SpellSchool[SpellSchool["Abjuration"] = 0] = "Abjuration";
@@ -155,17 +154,6 @@ var Spell = /** @class */ (function () {
     return Spell;
 }());
 
-function buttonclick() {
-    printToResult("Hello World!");
-    Spell.readAll();
-}
-function printToResult(text) {
-    var result = document.getElementById("result");
-    if (result) {
-        result.innerHTML = text;
-    }
-}
-(_a = document.querySelector("#testbutton")) === null || _a === void 0 ? void 0 : _a.addEventListener('click', buttonclick);
 
 
 /***/ })
@@ -229,7 +217,7 @@ var __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _spell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
 function onLoad() {
     console.log("getformdata onLoad called");
@@ -258,7 +246,7 @@ function getSpell(data) {
     var componentdesc = data.get("componentdesc");
     var description = data.get("description");
     var lists = data.getAll("lists");
-    var spell = new _main__WEBPACK_IMPORTED_MODULE_0__.Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc);
+    var spell = new _spell__WEBPACK_IMPORTED_MODULE_0__.Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc);
     console.log(spell);
     return spell;
 }
