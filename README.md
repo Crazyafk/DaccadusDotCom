@@ -1,1 +1,1 @@
-(https://crazyafk.github.io/DaccadusDotCom/)
+(https://crazyafk.github.io/DaccadusDotCom/dist/index.html)
