@@ -142,18 +142,33 @@ var Spell = /** @class */ (function () {
     }
     Spell.readAll = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var dir, example_spell, output, _a, _b;
+            var dir, file_list, output, _i, file_list_1, file, spell_result, spell, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        dir = './data/spells';
-                        return [4 /*yield*/, fetch("../data/spells/A Fresh Point of View.json")];
+                        dir = '../data/spells';
+                        return [4 /*yield*/, this.getDirectory(dir)];
                     case 1:
-                        example_spell = _c.sent();
-                        _b = (_a = JSON).parse;
-                        return [4 /*yield*/, example_spell.text()];
+                        file_list = _c.sent();
+                        output = [];
+                        _i = 0, file_list_1 = file_list;
+                        _c.label = 2;
                     case 2:
-                        output = _b.apply(_a, [_c.sent()]);
+                        if (!(_i < file_list_1.length)) return [3 /*break*/, 6];
+                        file = file_list_1[_i];
+                        return [4 /*yield*/, fetch(dir + file)];
+                    case 3:
+                        spell_result = _c.sent();
+                        _b = (_a = JSON).parse;
+                        return [4 /*yield*/, spell_result.text()];
+                    case 4:
+                        spell = _b.apply(_a, [_c.sent()]);
+                        output.push(spell);
+                        _c.label = 5;
+                    case 5:
+                        _i++;
+                        return [3 /*break*/, 2];
+                    case 6:
                         console.log("read spells");
                         console.log(output);
                         return [2 /*return*/, output];
@@ -175,6 +190,7 @@ var Spell = /** @class */ (function () {
                         str = _a.sent();
                         el = document.createElement('html');
                         el.innerHTML = str;
+                        console.log("directory fetch text:\n" + str);
                         list = el.getElementsByTagName("table")[0].getElementsByTagName("a");
                         arr = [];
                         for (i = 0; i < list.length; i++) {

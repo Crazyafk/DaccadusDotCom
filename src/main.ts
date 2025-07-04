@@ -43,11 +43,17 @@ export class Spell
         this.componentdesc = componentdesc
     }
 
-    static async readAll()
+    static async readAll(): Promise<Spell[]>
     {
-        const dir = './data/spells'
-        let example_spell = await fetch("../data/spells/A Fresh Point of View.json")
-        let output = JSON.parse(await example_spell.text()) as Spell;
+        const dir = '../data/spells'
+        let file_list = await this.getDirectory(dir)
+        let output: Spell[] = []
+
+        for(var file of file_list){
+            let spell_result = await fetch(dir+file)
+            let spell = JSON.parse(await spell_result.text()) as Spell;
+            output.push(spell);
+        }
 
         console.log("read spells");
         console.log(output);
@@ -55,11 +61,12 @@ export class Spell
         return output;
     }
     // Adapted from https://stackoverflow.com/a/77835274 
-    static async getDirectory(dirname: string) {
+    static async getDirectory(dirname: string): Promise<string[]> {
         let response = await fetch(dirname);
         let str = await response.text();
         let el = document.createElement('html');
         el.innerHTML = str;
+        console.log("directory fetch text:\n"+str);
 
         // this parse will work for http-server and may have to be modified for other
         // servers. Inspect the returned string to determine the proper parsing method
