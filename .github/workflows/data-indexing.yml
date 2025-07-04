@@ -1,12 +1,30 @@
 name: Data Indexing
-on: [push]
+on: 
+    push:
+        paths:
+            - '**.json'
 jobs:
     Index-Spells:
         runs-on: ubuntu-latest
         steps:
             - name: checkout repo
               uses: actions/checkout@v4
+              with:
+                persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+                fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
             - name: cd into directory
               run: cd ${{ github.workspace }}/data/spells/
             - name: index files
               run: ls >> index.html
+            - name: commit
+              run: |
+                git config --local user.name "41898282+github-actions[bot]@users.noreply.github.com"     
+                git config --local user.email "github-actions[bot]"
+                git add index.html
+                git commit -m "Auto: Indexed Spells"
+            - name: push
+              uses: ad-m/github-push-action@master
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                branch: ${{ github.ref }}
+              
