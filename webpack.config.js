@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    index: './src/main.ts',
-    addspell: './src/getformdata.ts'
+    index: './src/page/index.ts',
+    addspell: './src/page/newspell.ts'
   },
   module: {
     rules: [
