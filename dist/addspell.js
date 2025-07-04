@@ -172,6 +172,43 @@ var Spell = /** @class */ (function () {
 
 
 
+/***/ }),
+/* 2 */,
+/* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addFormListener: () => (/* binding */ addFormListener),
+/* harmony export */   downloadObjectAsJson: () => (/* binding */ downloadObjectAsJson)
+/* harmony export */ });
+// Initiates download of given object as a JSON in the client's browser.
+// Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
+function downloadObjectAsJson(exportObj, exportName) {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+function addFormListener(document, callback) {
+    console.log("getformdata onLoad called");
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.querySelector("#form");
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                var formData = new FormData(form);
+                console.log(formData);
+                callback(formData);
+            });
+        }
+    });
+}
+
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -234,34 +271,14 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _spell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _formhandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 
-function onLoad() {
-    console.log("getformdata onLoad called");
-    document.addEventListener("DOMContentLoaded", function () {
-        var form = document.querySelector("#form");
-        if (form) {
-            form.addEventListener("submit", function (event) {
-                event.preventDefault();
-                var formData = new FormData(form);
-                console.log(formData);
-                var spell = _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.fromFormData(formData);
-                downloadObjectAsJson(spell, spell.name);
-            });
-        }
-    });
+
+function spellCallback(data) {
+    var spell = _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.fromFormData(data);
+    (0,_formhandler__WEBPACK_IMPORTED_MODULE_1__.downloadObjectAsJson)(spell, spell.name);
 }
-// Initiates download of given object as a JSON in the client's browser.
-// Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
-function downloadObjectAsJson(exportObj, exportName) {
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-}
-onLoad();
+(0,_formhandler__WEBPACK_IMPORTED_MODULE_1__.addFormListener)(document, spellCallback);
 
 })();
 
