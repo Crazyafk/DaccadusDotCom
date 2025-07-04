@@ -1,0 +1,9 @@
+name: Data Indexing
+on: [push]
+jobs:
+    Index-Spells:
+        runs-on: ubuntu-latest
+        steps:
+            - run: cd data/spells/
+            - run: ls >> index.html
+            - run: cd ../../
