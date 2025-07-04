@@ -1,18 +1,9 @@
-// Initiates download of given object as a JSON in the client's browser.
-// Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
-export function downloadObjectAsJson(exportObj: any, exportName: string){
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
-    var downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
-    downloadAnchorNode.setAttribute("download", exportName + ".json");
-    document.body.appendChild(downloadAnchorNode); // required for firefox
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-}
+// This File contains common functions used for Forms on the site.
 
+// Creates FormData object when Form Submitted. (using Listeners)
+// Passes it to the Callback function for page-specific processing.
 export function addFormListener(document: Document, callback: CallableFunction)
 {
-    console.log("getformdata onLoad called");
     document.addEventListener("DOMContentLoaded", () => {
         const form = document.querySelector("#form") as HTMLFormElement
         if(form){
@@ -24,4 +15,16 @@ export function addFormListener(document: Document, callback: CallableFunction)
             })
         }
     })
+}
+
+// Initiates download of given object as a JSON in the client's browser.
+// Courtesy of mlimper on StackOverflow: https://stackoverflow.com/a/30800715
+export function downloadObjectAsJson(exportObj: any, exportName: string){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
 }
