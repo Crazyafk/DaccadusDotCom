@@ -11,7 +11,7 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 *Phase 1 (background functionality) and part of Phase 2 were completed before roadmap creation, so are not present.
 
 ## Phase 2: Tidy Up
-- [ ] Finish Contribution Guide
+- [x] Finish Contribution Guide
 - [ ] Write Tech Docs
 - [ ] Fix Data Indexing creating duplicate listings
 - [ ] Setup Repo Branches
