@@ -1,5 +1,5 @@
 # Link to Site:
-https://crazyafk.github.io/DaccadusDotCom/dist/index.html
+https://crazyafk.github.io/DaccadusDotCom/
 
 # Contribution Guide:
 https://github.com/Crazyafk/DaccadusDotCom/wiki/Contribution
