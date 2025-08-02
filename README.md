@@ -15,7 +15,6 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 - [x] Write Tech Docs
 - [x] Fix Data Indexing creating duplicate listings
 - [x] Setup Repo Branches
-- [ ] Possibly Webpack Workflow?
 
 ## Phase 3: Basic Functionality
 - [ ] Header
