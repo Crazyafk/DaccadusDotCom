@@ -136,7 +136,7 @@ var Spell = /** @class */ (function () {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        dir = '../data/spells/';
+                        dir = Spell.getRootURL() + 'data/spells/';
                         output = [];
                         return [4 /*yield*/, fetch(dir + 'index.html')];
                     case 1: return [4 /*yield*/, (_c.sent()).text()];
@@ -172,6 +172,22 @@ var Spell = /** @class */ (function () {
                 }
             });
         });
+    };
+    // TODO: move to more appropriate script
+    // Find the Root Project URL for the current environment. Returns URL, ending with '/'.
+    Spell.getRootURL = function () {
+        var full_url = window.location.href;
+        var possible_roots = [
+            'http://127.0.0.1:5500/',
+            'https://crazyafk.github.io/DaccadusDotCom/'
+        ];
+        for (var _i = 0, possible_roots_1 = possible_roots; _i < possible_roots_1.length; _i++) {
+            var root = possible_roots_1[_i];
+            if (full_url.indexOf(root) !== -1) //Slightly more verbose, older solution for greater compatability
+             {
+                return (root);
+            }
+        }
     };
     return Spell;
 }());
