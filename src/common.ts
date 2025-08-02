@@ -22,6 +22,17 @@ export function getRootURL(): String
         " you will need to update the list of possible roots in common.ts.getRootURL()")
 }
 
+// Gets header from header.html and adds it to id #addheader div in the given document.
+export async function addHeader(document: Document)
+{
+    const root: String = getRootURL()
+    let headerdocstring: String = await ((await fetch(root+'header.html')).text())
+    let headerdoc: Document = new DOMParser().parseFromString(headerdocstring as string, "text/html")
+    let header: HTMLElement = headerdoc.getElementById('header')
+
+    document.getElementById('addheader').appendChild(header)
+}
+
 // Creates FormData object when Form Submitted. (using Listeners)
 // Passes it to the Callback function for page-specific processing.
 export function addFormListener(document: Document, callback: CallableFunction)
