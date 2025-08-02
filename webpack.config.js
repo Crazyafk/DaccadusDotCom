@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
   entry: {
     index: './src/page/index.ts',
-    addspell: './src/page/newspell.ts'
+    addspell: './src/page/newspell.ts',
+    spells: './src/page/spells.ts'
   },
   module: {
     rules: [
