@@ -248,7 +248,7 @@ function getRootURL() {
 // Gets header from header.html and adds it to id #addheader div in the given document.
 function addHeader(document) {
     return __awaiter(this, void 0, void 0, function () {
-        var root, headerdocstring, headerdoc, header;
+        var root, headerdocstring, headerdoc, header, urls, i, url;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -259,6 +259,11 @@ function addHeader(document) {
                     headerdocstring = _a.sent();
                     headerdoc = new DOMParser().parseFromString(headerdocstring, "text/html");
                     header = headerdoc.getElementById('header');
+                    urls = header.getElementsByClassName("replace-root-url");
+                    for (i = 0; i < urls.length; i++) {
+                        url = urls[i];
+                        url.setAttribute("href", url.getAttribute("href").replace("root", root));
+                    }
                     document.getElementById('addheader').appendChild(header);
                     return [2 /*return*/];
             }

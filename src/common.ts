@@ -30,6 +30,14 @@ export async function addHeader(document: Document)
     let headerdoc: Document = new DOMParser().parseFromString(headerdocstring as string, "text/html")
     let header: HTMLElement = headerdoc.getElementById('header')
 
+    //replace root urls where needed
+    let urls: HTMLCollection = header.getElementsByClassName("replace-root-url")
+    for(let i = 0; i < urls.length; i++)
+    {
+        let url: HTMLAnchorElement = urls[i] as HTMLAnchorElement
+        url.setAttribute("href", url.getAttribute("href").replace("root", root as string))
+    }
+
     document.getElementById('addheader').appendChild(header)
 }
 
