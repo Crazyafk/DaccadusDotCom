@@ -17,6 +17,9 @@ export function getRootURL(): String
             return(root);
         }
     }
+
+    throw Error("Root URL not found. If you have changed the site URL or are using a different test environment,"+
+        " you will need to update the list of possible roots in common.ts.getRootURL()")
 }
 
 // Creates FormData object when Form Submitted. (using Listeners)
