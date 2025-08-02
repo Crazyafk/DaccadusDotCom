@@ -17,7 +17,7 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 - [x] Setup Repo Branches
 
 ## Phase 3: Basic Functionality
-- [ ] Header
+- [x] Header
 - [ ] General Spell List page and layout
 - [ ] Spell Full Display (when selected)
 - [ ] Spell Row Display (when in list)
