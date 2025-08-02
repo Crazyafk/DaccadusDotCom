@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   SpellList: () => (/* binding */ SpellList),
 /* harmony export */   SpellSchool: () => (/* binding */ SpellSchool)
 /* harmony export */ });
-// This File contains the Spell Class, and associated Enums.
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -50,6 +50,8 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+// This File contains the Spell Class, and associated Enums.
+
 var SpellSchool;
 (function (SpellSchool) {
     SpellSchool[SpellSchool["Abjuration"] = 0] = "Abjuration";
@@ -136,7 +138,7 @@ var Spell = /** @class */ (function () {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        dir = Spell.getRootURL() + 'data/spells/';
+                        dir = (0,_common__WEBPACK_IMPORTED_MODULE_0__.getRootURL)() + 'data/spells/';
                         output = [];
                         return [4 /*yield*/, fetch(dir + 'index.html')];
                     case 1: return [4 /*yield*/, (_c.sent()).text()];
@@ -173,38 +175,39 @@ var Spell = /** @class */ (function () {
             });
         });
     };
-    // TODO: move to more appropriate script
-    // Find the Root Project URL for the current environment. Returns URL, ending with '/'.
-    Spell.getRootURL = function () {
-        var full_url = window.location.href;
-        var possible_roots = [
-            'http://127.0.0.1:5500/',
-            'https://crazyafk.github.io/DaccadusDotCom/'
-        ];
-        for (var _i = 0, possible_roots_1 = possible_roots; _i < possible_roots_1.length; _i++) {
-            var root = possible_roots_1[_i];
-            if (full_url.indexOf(root) !== -1) //Slightly more verbose, older solution for greater compatability
-             {
-                return (root);
-            }
-        }
-    };
     return Spell;
 }());
 
 
 
 /***/ }),
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   addFormListener: () => (/* binding */ addFormListener),
-/* harmony export */   downloadObjectAsJson: () => (/* binding */ downloadObjectAsJson)
+/* harmony export */   downloadObjectAsJson: () => (/* binding */ downloadObjectAsJson),
+/* harmony export */   getRootURL: () => (/* binding */ getRootURL)
 /* harmony export */ });
-// This File contains common functions used for Forms on the site.
+// This File contains common functions used for All types of applications on the site.
+// Find the Root Project URL for the current environment. Returns URL, ending with '/'.
+function getRootURL() {
+    var full_url = window.location.href;
+    var possible_roots = [
+        'http://127.0.0.1:5500/',
+        'https://crazyafk.github.io/DaccadusDotCom/'
+    ];
+    for (var _i = 0, possible_roots_1 = possible_roots; _i < possible_roots_1.length; _i++) {
+        var root = possible_roots_1[_i];
+        if (full_url.indexOf(root) !== -1) //Slightly more verbose, older solution for greater compatability
+         {
+            return (root);
+        }
+    }
+    throw Error("Root URL not found. If you have changed the site URL or are using a different test environment," +
+        " you will need to update the list of possible roots in common.ts.getRootURL()");
+}
 // Creates FormData object when Form Submitted. (using Listeners)
 // Passes it to the Callback function for page-specific processing.
 function addFormListener(document, callback) {
@@ -295,16 +298,16 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _spell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _formhandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
 // The Callback used below - unique to Spells.
 function spellCallback(data) {
     var spell = _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.fromFormData(data);
-    (0,_formhandler__WEBPACK_IMPORTED_MODULE_1__.downloadObjectAsJson)(spell, spell.name);
+    (0,_common__WEBPACK_IMPORTED_MODULE_1__.downloadObjectAsJson)(spell, spell.name);
 }
 // Add Submit logic to Form
-(0,_formhandler__WEBPACK_IMPORTED_MODULE_1__.addFormListener)(document, spellCallback);
+(0,_common__WEBPACK_IMPORTED_MODULE_1__.addFormListener)(document, spellCallback);
 
 })();
 

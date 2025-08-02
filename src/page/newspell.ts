@@ -1,5 +1,5 @@
 import { Spell } from '../spell';
-import { addFormListener, downloadObjectAsJson } from '../formhandler';
+import { addFormListener, downloadObjectAsJson } from '../common';
 
 // The Callback used below - unique to Spells.
 function spellCallback(data: FormData)
