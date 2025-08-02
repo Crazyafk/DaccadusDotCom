@@ -1,4 +1,23 @@
-// This File contains common functions used for Forms on the site.
+// This File contains common functions used for All types of applications on the site.
+
+// Find the Root Project URL for the current environment. Returns URL, ending with '/'.
+export function getRootURL(): String
+{
+    let full_url: String = window.location.href
+
+    const possible_roots: String[] = [
+        'http://127.0.0.1:5500/',
+        'https://crazyafk.github.io/DaccadusDotCom/'
+        ]
+
+    for(var root of possible_roots) //If root is part of url, return root!
+    {
+        if(full_url.indexOf(root as string) !== -1) //Slightly more verbose, older solution for greater compatability
+        {
+            return(root);
+        }
+    }
+}
 
 // Creates FormData object when Form Submitted. (using Listeners)
 // Passes it to the Callback function for page-specific processing.
