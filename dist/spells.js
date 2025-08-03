@@ -294,6 +294,15 @@ var Spell = /** @class */ (function () {
             });
         });
     };
+    // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
+    Spell.prototype.displayDetailsDHDHDH = function (displayElement) {
+        //Simple Properties without complex logic
+        displayElement.querySelector("#name").innerHTML = this.name;
+        displayElement.querySelector("#castingtime").innerHTML = this.castingtime;
+        displayElement.querySelector("#range").innerHTML = this.range;
+        displayElement.querySelector("#duration").innerHTML = this.duration;
+        displayElement.querySelector("#description").innerHTML = this.description;
+    };
     return Spell;
 }());
 
@@ -402,12 +411,17 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var spells;
+        var spells, display, spell;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()];
+                case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()
+                    //temp display testing before list is implemented
+                ];
                 case 1:
                     spells = _a.sent();
+                    display = document.getElementById("display");
+                    spell = spells[0];
+                    spell.displayDetailsDHDHDH(display);
                     return [2 /*return*/];
             }
         });

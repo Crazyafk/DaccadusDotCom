@@ -96,4 +96,15 @@ export class Spell
 
         return output;
     }
+
+    // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
+    public displayDetailsDHDHDH(displayElement:HTMLDivElement)
+    {
+        //Simple Properties without complex logic
+        displayElement.querySelector("#name").innerHTML = this.name
+        displayElement.querySelector("#castingtime").innerHTML = this.castingtime
+        displayElement.querySelector("#range").innerHTML = this.range
+        displayElement.querySelector("#duration").innerHTML = this.duration
+        displayElement.querySelector("#description").innerHTML = this.description
+    }
 }

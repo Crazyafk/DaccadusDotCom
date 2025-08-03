@@ -294,6 +294,15 @@ var Spell = /** @class */ (function () {
             });
         });
     };
+    // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
+    Spell.prototype.displayDetailsDHDHDH = function (displayElement) {
+        //Simple Properties without complex logic
+        displayElement.querySelector("#name").innerHTML = this.name;
+        displayElement.querySelector("#castingtime").innerHTML = this.castingtime;
+        displayElement.querySelector("#range").innerHTML = this.range;
+        displayElement.querySelector("#duration").innerHTML = this.duration;
+        displayElement.querySelector("#description").innerHTML = this.description;
+    };
     return Spell;
 }());
 
