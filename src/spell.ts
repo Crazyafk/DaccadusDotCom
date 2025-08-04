@@ -29,10 +29,10 @@ export class Spell
     range: string
     duration: string
 
-    // Standard Constructor, using all Parameters.
-    constructor(level: number, name: string, schools: SpellSchool[], description: string, 
-        lists: SpellList[], castingtime: string, components: SpellComponent[],
-        concentration: Concentration, range: string, duration: string, componentdesc: string)
+    // Standard Constructor, using all Parameters. all optional to make empty object creation possible.
+    constructor(level?: number, name?: string, schools?: SpellSchool[], description?: string, 
+        lists?: SpellList[], castingtime?: string, components?: SpellComponent[],
+        concentration?: Concentration, range?: string, duration?: string, componentdesc?: string)
     {
         this.level = level
         this.name = name
@@ -88,6 +88,7 @@ export class Spell
 
             let spell_response = await fetch(dir+file)                      //Fetch
             let spell = JSON.parse(await spell_response.text()) as Spell;   //Process (Response -> string -> Spell)
+            spell = Object.assign(new Spell(), spell)                       //Reform object, to get around issue where deserialized json objects have no methods
             output.push(spell);
         }
 
@@ -98,7 +99,7 @@ export class Spell
     }
 
     // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
-    public displayDetailsDHDHDH(displayElement:HTMLDivElement)
+    public display(displayElement:HTMLDivElement)
     {
         //Simple Properties without complex logic
         displayElement.querySelector("#name").innerHTML = this.name

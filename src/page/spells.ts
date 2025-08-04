@@ -8,7 +8,7 @@ async function onLoad()
     //temp display testing before list is implemented
     let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
     let spell = spells[0] as Spell
-    spell.displayDetailsDHDHDH(display)
+    spell.display(display)
 }
 
 addHeader(document);

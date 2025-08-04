@@ -215,7 +215,7 @@ var Concentration;
     Concentration[Concentration["Full"] = 2] = "Full";
 })(Concentration || (Concentration = {}));
 var Spell = /** @class */ (function () {
-    // Standard Constructor, using all Parameters.
+    // Standard Constructor, using all Parameters. all optional to make empty object creation possible.
     function Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc) {
         this.schools = [];
         this.lists = [];
@@ -281,6 +281,7 @@ var Spell = /** @class */ (function () {
                         return [4 /*yield*/, spell_response.text()];
                     case 5:
                         spell = _b.apply(_a, [_c.sent()]);
+                        spell = Object.assign(new Spell(), spell); //Reform object, to get around issue where deserialized json objects have no methods
                         output.push(spell);
                         _c.label = 6;
                     case 6:
@@ -295,7 +296,7 @@ var Spell = /** @class */ (function () {
         });
     };
     // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
-    Spell.prototype.displayDetailsDHDHDH = function (displayElement) {
+    Spell.prototype.display = function (displayElement) {
         //Simple Properties without complex logic
         displayElement.querySelector("#name").innerHTML = this.name;
         displayElement.querySelector("#castingtime").innerHTML = this.castingtime;
@@ -421,7 +422,7 @@ function onLoad() {
                     spells = _a.sent();
                     display = document.getElementById("display");
                     spell = spells[0];
-                    spell.displayDetailsDHDHDH(display);
+                    spell.display(display);
                     return [2 /*return*/];
             }
         });
