@@ -120,24 +120,16 @@ export class Spell
             if(!isLast){schoolstext += ", "}
         }
         let tag: string = ""
-        switch(this.level)
-        {
-            case 0:
-                tag = schoolstext + " Cantrip"
-                console.log("cantrip")
-                break;
-            case 1:
-                tag = "1st level "+schoolstext
-                break;
-            case 2:
-                tag = "2nd level "+schoolstext
-                break;
-            case 3:
-                tag = "3rd level "+schoolstext
-                break;
-            default:
-                tag = this.level.toString() + "th level "+schoolstext
-                break;
+        if(this.level == 0){        //I was going to use a switch statement but it didn't work for some reason
+            tag = schoolstext + " Cantrip"
+        }else if(this.level == 1){
+            tag = "1st level "+schoolstext
+        }else if(this.level == 2){
+            tag = "2nd level "+schoolstext
+        }else if(this.level == 3){
+            tag = "3rd level "+schoolstext
+        }else{
+            tag = this.level+"th level "+schoolstext
         }
         displayElement.querySelector("#tag").innerHTML = tag
     }
