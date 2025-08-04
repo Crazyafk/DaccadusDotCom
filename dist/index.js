@@ -10,7 +10,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   addFormListener: () => (/* binding */ addFormListener),
 /* harmony export */   addHeader: () => (/* binding */ addHeader),
 /* harmony export */   downloadObjectAsJson: () => (/* binding */ downloadObjectAsJson),
-/* harmony export */   getRootURL: () => (/* binding */ getRootURL)
+/* harmony export */   getRootURL: () => (/* binding */ getRootURL),
+/* harmony export */   listToString: () => (/* binding */ listToString)
 /* harmony export */ });
 // This File contains common functions used for All types of applications on the site.
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -90,6 +91,19 @@ function addHeader(document) {
             }
         });
     });
+}
+// Takes a list of strings, turns them into a string seperated by ", "
+function listToString(list) {
+    var result = "";
+    for (var i = 0; i < list.length; i++) {
+        var isLast = i == list.length - 1;
+        result = result.concat(list[i]);
+        console.log(result);
+        if (!isLast) {
+            result = result.concat(", ");
+        }
+    }
+    return (result);
 }
 // Creates FormData object when Form Submitted. (using Listeners)
 // Passes it to the Callback function for page-specific processing.

@@ -10,7 +10,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   addFormListener: () => (/* binding */ addFormListener),
 /* harmony export */   addHeader: () => (/* binding */ addHeader),
 /* harmony export */   downloadObjectAsJson: () => (/* binding */ downloadObjectAsJson),
-/* harmony export */   getRootURL: () => (/* binding */ getRootURL)
+/* harmony export */   getRootURL: () => (/* binding */ getRootURL),
+/* harmony export */   listToString: () => (/* binding */ listToString)
 /* harmony export */ });
 // This File contains common functions used for All types of applications on the site.
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -90,6 +91,19 @@ function addHeader(document) {
             }
         });
     });
+}
+// Takes a list of strings, turns them into a string seperated by ", "
+function listToString(list) {
+    var result = "";
+    for (var i = 0; i < list.length; i++) {
+        var isLast = i == list.length - 1;
+        result = result.concat(list[i]);
+        console.log(result);
+        if (!isLast) {
+            result = result.concat(", ");
+        }
+    }
+    return (result);
 }
 // Creates FormData object when Form Submitted. (using Listeners)
 // Passes it to the Callback function for page-specific processing.
@@ -173,40 +187,40 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 var SpellSchool;
 (function (SpellSchool) {
-    SpellSchool[SpellSchool["Abjuration"] = 0] = "Abjuration";
-    SpellSchool[SpellSchool["Arcanomancy"] = 1] = "Arcanomancy";
-    SpellSchool[SpellSchool["Astromancy"] = 2] = "Astromancy";
-    SpellSchool[SpellSchool["Conjuration"] = 3] = "Conjuration";
-    SpellSchool[SpellSchool["Chronurgy"] = 4] = "Chronurgy";
-    SpellSchool[SpellSchool["Divination"] = 5] = "Divination";
-    SpellSchool[SpellSchool["Enchantment"] = 6] = "Enchantment";
-    SpellSchool[SpellSchool["Evocation"] = 7] = "Evocation";
-    SpellSchool[SpellSchool["Haemocraft"] = 8] = "Haemocraft";
-    SpellSchool[SpellSchool["Illusion"] = 9] = "Illusion";
-    SpellSchool[SpellSchool["Mythcraft"] = 10] = "Mythcraft";
-    SpellSchool[SpellSchool["Necromancy"] = 11] = "Necromancy";
-    SpellSchool[SpellSchool["Technomancy"] = 12] = "Technomancy";
-    SpellSchool[SpellSchool["Transmutation"] = 13] = "Transmutation";
+    SpellSchool["Abjuration"] = "Abjuration";
+    SpellSchool["Arcanomancy"] = "Arcanomancy";
+    SpellSchool["Astromancy"] = "Astromancy";
+    SpellSchool["Conjuration"] = "Conjuration";
+    SpellSchool["Chronurgy"] = "Chronurgy";
+    SpellSchool["Divination"] = "Divination";
+    SpellSchool["Enchantment"] = "Enchantment";
+    SpellSchool["Evocation"] = "Evocation";
+    SpellSchool["Haemocraft"] = "Haemocraft";
+    SpellSchool["Illusion"] = "Illusion";
+    SpellSchool["Mythcraft"] = "Mythcraft";
+    SpellSchool["Necromancy"] = "Necromancy";
+    SpellSchool["Technomancy"] = "Technomancy";
+    SpellSchool["Transmutation"] = "Transmutation";
 })(SpellSchool || (SpellSchool = {}));
 var SpellList;
 (function (SpellList) {
-    SpellList[SpellList["Artificer"] = 0] = "Artificer";
-    SpellList[SpellList["Bloodbound"] = 1] = "Bloodbound";
-    SpellList[SpellList["Cleric"] = 2] = "Cleric";
-    SpellList[SpellList["Paladin"] = 3] = "Paladin";
-    SpellList[SpellList["Psycaster"] = 4] = "Psycaster";
-    SpellList[SpellList["SpellSword"] = 5] = "SpellSword";
-    SpellList[SpellList["Wizard"] = 6] = "Wizard";
+    SpellList["Artificer"] = "Artificer";
+    SpellList["Bloodbound"] = "Bloodbound";
+    SpellList["Cleric"] = "Cleric";
+    SpellList["Paladin"] = "Paladin";
+    SpellList["Psycaster"] = "Psycaster";
+    SpellList["SpellSword"] = "Spell-Sword";
+    SpellList["Wizard"] = "Wizard";
 })(SpellList || (SpellList = {}));
 var SpellComponent;
 (function (SpellComponent) {
-    SpellComponent[SpellComponent["F"] = 0] = "F";
-    SpellComponent[SpellComponent["Feq"] = 1] = "Feq";
-    SpellComponent[SpellComponent["V"] = 2] = "V";
-    SpellComponent[SpellComponent["S"] = 3] = "S";
-    SpellComponent[SpellComponent["S2"] = 4] = "S2";
-    SpellComponent[SpellComponent["M"] = 5] = "M";
-    SpellComponent[SpellComponent["Mc"] = 6] = "Mc";
+    SpellComponent["F"] = "F";
+    SpellComponent["Feq"] = "F.eq";
+    SpellComponent["V"] = "V";
+    SpellComponent["S"] = "S";
+    SpellComponent["S2"] = "S.2";
+    SpellComponent["M"] = "M";
+    SpellComponent["Mc"] = "M.c";
 })(SpellComponent || (SpellComponent = {}));
 var Concentration;
 (function (Concentration) {
@@ -215,7 +229,7 @@ var Concentration;
     Concentration[Concentration["Full"] = 2] = "Full";
 })(Concentration || (Concentration = {}));
 var Spell = /** @class */ (function () {
-    // Standard Constructor, using all Parameters.
+    // Standard Constructor, using all Parameters. all optional to make empty object creation possible.
     function Spell(level, name, schools, description, lists, castingtime, components, concentration, range, duration, componentdesc) {
         this.schools = [];
         this.lists = [];
@@ -281,6 +295,7 @@ var Spell = /** @class */ (function () {
                         return [4 /*yield*/, spell_response.text()];
                     case 5:
                         spell = _b.apply(_a, [_c.sent()]);
+                        spell = Object.assign(new Spell(), spell); //Reform object, to get around issue where deserialized json objects have no methods
                         output.push(spell);
                         _c.label = 6;
                     case 6:
@@ -293,6 +308,61 @@ var Spell = /** @class */ (function () {
                 }
             });
         });
+    };
+    // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
+    Spell.prototype.display = function (displayElement) {
+        //Simple Properties without complex logic
+        displayElement.querySelector("#name").innerHTML = this.name;
+        displayElement.querySelector("#lists").innerHTML = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.lists);
+        displayElement.querySelector("#castingtime").innerHTML = this.castingtime;
+        displayElement.querySelector("#range").innerHTML = this.range;
+        displayElement.querySelector("#duration").innerHTML = this.duration;
+        displayElement.querySelector("#description").innerHTML = this.description;
+        //Tag
+        var schoolstext = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.schools);
+        var tag = "";
+        if (this.level == 0) { //I was going to use a switch statement but it didn't work for some reason
+            tag = schoolstext + " Cantrip";
+        }
+        else if (this.level == 1) {
+            tag = "1st level " + schoolstext;
+        }
+        else if (this.level == 2) {
+            tag = "2nd level " + schoolstext;
+        }
+        else if (this.level == 3) {
+            tag = "3rd level " + schoolstext;
+        }
+        else {
+            tag = this.level + "th level " + schoolstext;
+        }
+        displayElement.querySelector("#tag").innerHTML = tag;
+        //Components
+        var componenttext = "";
+        if (this.components.length == 0) {
+            componenttext = "None";
+        } //Edge case for no components, as in 'A Fresh Point of View'
+        else {
+            componenttext = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.components);
+        }
+        displayElement.querySelector("#components").innerHTML = componenttext;
+        //Component Description
+        if (this.componentdesc == "") {
+            displayElement.querySelector("#componentdescwrapper").innerHTML = '<span id="componentdesc"></span>'; //Empty, without destroying componentdesc for future use
+        }
+        else {
+            displayElement.querySelector("#componentdescwrapper").innerHTML = ' (<span id="componentdesc"></span>)'; //Restore brackets
+            displayElement.querySelector("#componentdesc").innerHTML = this.componentdesc;
+        }
+        //Concentration
+        var concentrationtext = ""; //If None, fall back to default (empty string)
+        if (this.concentration == Concentration.Half) {
+            concentrationtext = "Concentration: Half";
+        }
+        else if (this.concentration == Concentration.Full) {
+            concentrationtext = "Concentration: Full";
+        }
+        displayElement.querySelector("#concentration").innerHTML = concentrationtext;
     };
     return Spell;
 }());

@@ -1,16 +1,19 @@
 // This File contains the Spell Class, and associated Enums.
-import { getRootURL } from "./common"
+import { getRootURL, listToString } from "./common"
 
 export enum SpellSchool{
-    Abjuration, Arcanomancy, Astromancy, Conjuration, Chronurgy, Divination, 
-    Enchantment, Evocation, Haemocraft, Illusion, Mythcraft,
-    Necromancy, Technomancy, Transmutation
+    Abjuration = "Abjuration", Arcanomancy = "Arcanomancy", Astromancy = "Astromancy", 
+    Conjuration = "Conjuration", Chronurgy = "Chronurgy", Divination = "Divination", 
+    Enchantment = "Enchantment", Evocation = "Evocation", Haemocraft = "Haemocraft", 
+    Illusion = "Illusion", Mythcraft = "Mythcraft", Necromancy = "Necromancy", 
+    Technomancy = "Technomancy", Transmutation = "Transmutation"
 }
 export enum SpellList{
-    Artificer, Bloodbound, Cleric, Paladin, Psycaster, SpellSword, Wizard
+    Artificer = "Artificer", Bloodbound = "Bloodbound", Cleric = "Cleric", 
+    Paladin = "Paladin", Psycaster = "Psycaster", SpellSword = "Spell-Sword", Wizard = "Wizard"
 }
 export enum SpellComponent{
-    F, Feq, V, S, S2, M, Mc
+    F = "F", Feq = "F.eq", V = "V", S = "S", S2 = "S.2", M = "M", Mc = "M.c"
 }
 export enum Concentration{
     None, Half, Full
@@ -29,10 +32,10 @@ export class Spell
     range: string
     duration: string
 
-    // Standard Constructor, using all Parameters.
-    constructor(level: number, name: string, schools: SpellSchool[], description: string, 
-        lists: SpellList[], castingtime: string, components: SpellComponent[],
-        concentration: Concentration, range: string, duration: string, componentdesc: string)
+    // Standard Constructor, using all Parameters. all optional to make empty object creation possible.
+    constructor(level?: number, name?: string, schools?: SpellSchool[], description?: string, 
+        lists?: SpellList[], castingtime?: string, components?: SpellComponent[],
+        concentration?: Concentration, range?: string, duration?: string, componentdesc?: string)
     {
         this.level = level
         this.name = name
@@ -88,6 +91,7 @@ export class Spell
 
             let spell_response = await fetch(dir+file)                      //Fetch
             let spell = JSON.parse(await spell_response.text()) as Spell;   //Process (Response -> string -> Spell)
+            spell = Object.assign(new Spell(), spell)                       //Reform object, to get around issue where deserialized json objects have no methods
             output.push(spell);
         }
 
@@ -95,5 +99,55 @@ export class Spell
         console.log(output);
 
         return output;
+    }
+
+    // Insert a spell's details into the #display div given. the div must have certain child elements for this to work.
+    public display(displayElement:HTMLDivElement)
+    {
+        //Simple Properties without complex logic
+        displayElement.querySelector("#name").innerHTML = this.name
+        displayElement.querySelector("#lists").innerHTML = listToString(this.lists as string[]) as string
+        displayElement.querySelector("#castingtime").innerHTML = this.castingtime
+        displayElement.querySelector("#range").innerHTML = this.range
+        displayElement.querySelector("#duration").innerHTML = this.duration
+        displayElement.querySelector("#description").innerHTML = this.description
+        
+        //Tag
+        let schoolstext: String = listToString(this.schools as string[])
+        let tag: string = ""
+        if(this.level == 0){        //I was going to use a switch statement but it didn't work for some reason
+            tag = schoolstext + " Cantrip"
+        }else if(this.level == 1){
+            tag = "1st level "+schoolstext
+        }else if(this.level == 2){
+            tag = "2nd level "+schoolstext
+        }else if(this.level == 3){
+            tag = "3rd level "+schoolstext
+        }else{
+            tag = this.level+"th level "+schoolstext
+        }
+        displayElement.querySelector("#tag").innerHTML = tag
+
+        //Components
+        let componenttext: string = ""
+        if(this.components.length == 0){componenttext = "None"} //Edge case for no components, as in 'A Fresh Point of View'
+        else{componenttext = listToString(this.components as string[]) as string}
+        displayElement.querySelector("#components").innerHTML = componenttext
+
+        //Component Description
+        if(this.componentdesc == "")
+        {
+            displayElement.querySelector("#componentdescwrapper").innerHTML = '<span id="componentdesc"></span>' //Empty, without destroying componentdesc for future use
+        }
+        else{
+            displayElement.querySelector("#componentdescwrapper").innerHTML = ' (<span id="componentdesc"></span>)' //Restore brackets
+            displayElement.querySelector("#componentdesc").innerHTML = this.componentdesc
+        }
+
+        //Concentration
+        let concentrationtext: string = "" //If None, fall back to default (empty string)
+        if(this.concentration == Concentration.Half){concentrationtext = "Concentration: Half"}
+        else if(this.concentration == Concentration.Full){concentrationtext = "Concentration: Full"}
+        displayElement.querySelector("#concentration").innerHTML = concentrationtext
     }
 }
