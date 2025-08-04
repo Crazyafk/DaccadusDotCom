@@ -481,7 +481,7 @@ function onLoad() {
                 case 1:
                     spells = _a.sent();
                     display = document.getElementById("display");
-                    spell = spells[0];
+                    spell = spells[6];
                     spell.display(display);
                     return [2 /*return*/];
             }
