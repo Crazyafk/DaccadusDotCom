@@ -7,7 +7,7 @@ async function onLoad()
 
     //temp display testing before list is implemented
     let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
-    let spell = spells[6] as Spell
+    let spell = spells[7] as Spell
     spell.display(display)
 }
 
