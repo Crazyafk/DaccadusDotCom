@@ -41,6 +41,20 @@ export async function addHeader(document: Document)
     document.getElementById('addheader').appendChild(header)
 }
 
+// Takes a list of strings, turns them into a string seperated by ", "
+export function listToString(list: string[]): String
+{
+    let result: String = ""
+    for(let i = 0; i < list.length; i++)
+    {
+        let isLast: boolean = i == list.length - 1
+        result = result.concat(list[i])
+        console.log(result)
+        if(!isLast){result = result.concat(", ")}
+    }
+    return(result)
+}
+
 // Creates FormData object when Form Submitted. (using Listeners)
 // Passes it to the Callback function for page-specific processing.
 export function addFormListener(document: Document, callback: CallableFunction)

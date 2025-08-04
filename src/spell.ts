@@ -1,6 +1,5 @@
 // This File contains the Spell Class, and associated Enums.
-import { log } from "console"
-import { getRootURL } from "./common"
+import { getRootURL, listToString } from "./common"
 
 export enum SpellSchool{
     Abjuration = "Abjuration", Arcanomancy = "Arcanomancy", Astromancy = "Astromancy", 
@@ -10,10 +9,11 @@ export enum SpellSchool{
     Technomancy = "Technomancy", Transmutation = "Transmutation"
 }
 export enum SpellList{
-    Artificer, Bloodbound, Cleric, Paladin, Psycaster, SpellSword, Wizard
+    Artificer = "Artificer", Bloodbound = "Bloodbound", Cleric = "Cleric", 
+    Paladin = "Paladin", Psycaster = "Psycaster", SpellSword = "Spell-Sword", Wizard = "Wizard"
 }
 export enum SpellComponent{
-    F, Feq, V, S, S2, M, Mc
+    F = "F", Feq = "F.eq", V = "V", S = "S", S2 = "S.2", M = "M", Mc = "M.c"
 }
 export enum Concentration{
     None, Half, Full
@@ -106,19 +106,14 @@ export class Spell
     {
         //Simple Properties without complex logic
         displayElement.querySelector("#name").innerHTML = this.name
+        displayElement.querySelector("#lists").innerHTML = listToString(this.lists as string[]) as string
         displayElement.querySelector("#castingtime").innerHTML = this.castingtime
         displayElement.querySelector("#range").innerHTML = this.range
         displayElement.querySelector("#duration").innerHTML = this.duration
         displayElement.querySelector("#description").innerHTML = this.description
-
+        
         //Tag
-        let schoolstext: string = ""
-        for(let i = 0; i < this.schools.length; i++)
-        {
-            let isLast: boolean = i == this.schools.length - 1
-            schoolstext += this.schools[i]
-            if(!isLast){schoolstext += ", "}
-        }
+        let schoolstext: String = listToString(this.schools as string[])
         let tag: string = ""
         if(this.level == 0){        //I was going to use a switch statement but it didn't work for some reason
             tag = schoolstext + " Cantrip"
@@ -132,5 +127,27 @@ export class Spell
             tag = this.level+"th level "+schoolstext
         }
         displayElement.querySelector("#tag").innerHTML = tag
+
+        //Components
+        let componenttext: string = ""
+        if(this.components.length == 0){componenttext = "None"} //Edge case for no components, as in 'A Fresh Point of View'
+        else{componenttext = listToString(this.components as string[]) as string}
+        displayElement.querySelector("#components").innerHTML = componenttext
+
+        //Component Description
+        if(this.componentdesc == "")
+        {
+            displayElement.querySelector("#componentdescwrapper").innerHTML = '<span id="componentdesc"></span>' //Empty, without destroying componentdesc for future use
+        }
+        else{
+            displayElement.querySelector("#componentdescwrapper").innerHTML = ' (<span id="componentdesc"></span>)' //Restore brackets
+            displayElement.querySelector("#componentdesc").innerHTML = this.componentdesc
+        }
+
+        //Concentration
+        let concentrationtext: string = "" //If None, fall back to default (empty string)
+        if(this.concentration == Concentration.Half){concentrationtext = "Concentration: Half"}
+        else if(this.concentration == Concentration.Full){concentrationtext = "Concentration: Full"}
+        displayElement.querySelector("#concentration").innerHTML = concentrationtext
     }
 }
