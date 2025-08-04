@@ -169,24 +169,23 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-// This File contains the Spell Class, and associated Enums.
 
 var SpellSchool;
 (function (SpellSchool) {
-    SpellSchool[SpellSchool["Abjuration"] = 0] = "Abjuration";
-    SpellSchool[SpellSchool["Arcanomancy"] = 1] = "Arcanomancy";
-    SpellSchool[SpellSchool["Astromancy"] = 2] = "Astromancy";
-    SpellSchool[SpellSchool["Conjuration"] = 3] = "Conjuration";
-    SpellSchool[SpellSchool["Chronurgy"] = 4] = "Chronurgy";
-    SpellSchool[SpellSchool["Divination"] = 5] = "Divination";
-    SpellSchool[SpellSchool["Enchantment"] = 6] = "Enchantment";
-    SpellSchool[SpellSchool["Evocation"] = 7] = "Evocation";
-    SpellSchool[SpellSchool["Haemocraft"] = 8] = "Haemocraft";
-    SpellSchool[SpellSchool["Illusion"] = 9] = "Illusion";
-    SpellSchool[SpellSchool["Mythcraft"] = 10] = "Mythcraft";
-    SpellSchool[SpellSchool["Necromancy"] = 11] = "Necromancy";
-    SpellSchool[SpellSchool["Technomancy"] = 12] = "Technomancy";
-    SpellSchool[SpellSchool["Transmutation"] = 13] = "Transmutation";
+    SpellSchool["Abjuration"] = "Abjuration";
+    SpellSchool["Arcanomancy"] = "Arcanomancy";
+    SpellSchool["Astromancy"] = "Astromancy";
+    SpellSchool["Conjuration"] = "Conjuration";
+    SpellSchool["Chronurgy"] = "Chronurgy";
+    SpellSchool["Divination"] = "Divination";
+    SpellSchool["Enchantment"] = "Enchantment";
+    SpellSchool["Evocation"] = "Evocation";
+    SpellSchool["Haemocraft"] = "Haemocraft";
+    SpellSchool["Illusion"] = "Illusion";
+    SpellSchool["Mythcraft"] = "Mythcraft";
+    SpellSchool["Necromancy"] = "Necromancy";
+    SpellSchool["Technomancy"] = "Technomancy";
+    SpellSchool["Transmutation"] = "Transmutation";
 })(SpellSchool || (SpellSchool = {}));
 var SpellList;
 (function (SpellList) {
@@ -303,6 +302,35 @@ var Spell = /** @class */ (function () {
         displayElement.querySelector("#range").innerHTML = this.range;
         displayElement.querySelector("#duration").innerHTML = this.duration;
         displayElement.querySelector("#description").innerHTML = this.description;
+        //Tag
+        var schoolstext = "";
+        for (var i = 0; i < this.schools.length; i++) {
+            var isLast = i == this.schools.length - 1;
+            schoolstext += this.schools[i];
+            if (!isLast) {
+                schoolstext += ", ";
+            }
+        }
+        var tag = "";
+        switch (this.level) {
+            case 0:
+                tag = schoolstext + " Cantrip";
+                console.log("cantrip");
+                break;
+            case 1:
+                tag = "1st level " + schoolstext;
+                break;
+            case 2:
+                tag = "2nd level " + schoolstext;
+                break;
+            case 3:
+                tag = "3rd level " + schoolstext;
+                break;
+            default:
+                tag = this.level.toString() + "th level " + schoolstext;
+                break;
+        }
+        displayElement.querySelector("#tag").innerHTML = tag;
     };
     return Spell;
 }());

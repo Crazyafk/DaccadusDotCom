@@ -1,10 +1,13 @@
 // This File contains the Spell Class, and associated Enums.
+import { log } from "console"
 import { getRootURL } from "./common"
 
 export enum SpellSchool{
-    Abjuration, Arcanomancy, Astromancy, Conjuration, Chronurgy, Divination, 
-    Enchantment, Evocation, Haemocraft, Illusion, Mythcraft,
-    Necromancy, Technomancy, Transmutation
+    Abjuration = "Abjuration", Arcanomancy = "Arcanomancy", Astromancy = "Astromancy", 
+    Conjuration = "Conjuration", Chronurgy = "Chronurgy", Divination = "Divination", 
+    Enchantment = "Enchantment", Evocation = "Evocation", Haemocraft = "Haemocraft", 
+    Illusion = "Illusion", Mythcraft = "Mythcraft", Necromancy = "Necromancy", 
+    Technomancy = "Technomancy", Transmutation = "Transmutation"
 }
 export enum SpellList{
     Artificer, Bloodbound, Cleric, Paladin, Psycaster, SpellSword, Wizard
@@ -107,5 +110,35 @@ export class Spell
         displayElement.querySelector("#range").innerHTML = this.range
         displayElement.querySelector("#duration").innerHTML = this.duration
         displayElement.querySelector("#description").innerHTML = this.description
+
+        //Tag
+        let schoolstext: string = ""
+        for(let i = 0; i < this.schools.length; i++)
+        {
+            let isLast: boolean = i == this.schools.length - 1
+            schoolstext += this.schools[i]
+            if(!isLast){schoolstext += ", "}
+        }
+        let tag: string = ""
+        switch(this.level)
+        {
+            case 0:
+                tag = schoolstext + " Cantrip"
+                console.log("cantrip")
+                break;
+            case 1:
+                tag = "1st level "+schoolstext
+                break;
+            case 2:
+                tag = "2nd level "+schoolstext
+                break;
+            case 3:
+                tag = "3rd level "+schoolstext
+                break;
+            default:
+                tag = this.level.toString() + "th level "+schoolstext
+                break;
+        }
+        displayElement.querySelector("#tag").innerHTML = tag
     }
 }
