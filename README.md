@@ -20,7 +20,7 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 - [x] Header
 - [x] General Spell List page and layout
 - [x] Spell Full Display (when selected)
-- [ ] Spell Row Display (when in list)
+- [x] Spell Row Display (when in list)
 - [ ] URL params, to make it possible to link to a spell
 
 ## Phase 4: Domain Publishing
