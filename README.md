@@ -18,8 +18,8 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 
 ## Phase 3: Basic Functionality
 - [x] Header
-- [ ] General Spell List page and layout
-- [ ] Spell Full Display (when selected)
+- [x] General Spell List page and layout
+- [x] Spell Full Display (when selected)
 - [ ] Spell Row Display (when in list)
 - [ ] URL params, to make it possible to link to a spell
 

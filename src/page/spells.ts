@@ -9,6 +9,14 @@ async function onLoad()
     let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
     let spell = spells[7] as Spell
     spell.display(display)
+
+    //list
+    let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
+    for(let i = 0; i < spells.length; i++)
+    {
+        let spell: Spell = spells[i]
+        spell.listEntry(document, spelllist.querySelector("tbody"))
+    }
 }
 
 addHeader(document);

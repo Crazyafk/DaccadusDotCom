@@ -364,6 +364,43 @@ var Spell = /** @class */ (function () {
         }
         displayElement.querySelector("#concentration").innerHTML = concentrationtext;
     };
+    Spell.prototype.listEntry = function (document, table) {
+        var row = document.createElement("tr");
+        table.appendChild(row);
+        var nameElement = document.createElement("th");
+        row.appendChild(nameElement);
+        nameElement.scope = "row";
+        nameElement.innerHTML = this.name;
+        var leveltext;
+        if (this.level == 0) { //I was going to use a switch statement but it didn't work for some reason
+            leveltext = "Cantrip";
+        }
+        else if (this.level == 1) {
+            leveltext = "1st";
+        }
+        else if (this.level == 2) {
+            leveltext = "2nd";
+        }
+        else if (this.level == 3) {
+            leveltext = "3rd";
+        }
+        else {
+            leveltext = this.level.toString() + "th";
+        }
+        var levelElement = document.createElement("td");
+        row.appendChild(levelElement);
+        levelElement.innerHTML = leveltext;
+        var castingElement = document.createElement("td");
+        row.appendChild(castingElement);
+        castingElement.innerHTML = this.castingtime;
+        var concentrationElement = document.createElement("td");
+        row.appendChild(concentrationElement);
+        concentrationElement.innerHTML = this.concentration.toString();
+        var schoolsElement = document.createElement("td");
+        row.appendChild(schoolsElement);
+        schoolsElement.innerHTML = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.schools);
+        return row;
+    };
     return Spell;
 }());
 
