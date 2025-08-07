@@ -150,4 +150,44 @@ export class Spell
         else if(this.concentration == Concentration.Full){concentrationtext = "Concentration: Full"}
         displayElement.querySelector("#concentration").innerHTML = concentrationtext
     }
+
+    public listEntry(document: Document, table: HTMLElement) : HTMLTableRowElement
+    {
+        let row = document.createElement("tr") as HTMLTableRowElement
+        table.appendChild(row)
+
+        let nameElement = document.createElement("th")
+        row.appendChild(nameElement)
+        nameElement.scope = "row"
+        nameElement.innerHTML = this.name
+
+        let leveltext : string
+        if(this.level == 0){        //I was going to use a switch statement but it didn't work for some reason
+            leveltext = "Cantrip"
+        }else if(this.level == 1){
+            leveltext = "1st"
+        }else if(this.level == 2){
+            leveltext = "2nd"
+        }else if(this.level == 3){
+            leveltext = "3rd"
+        }else{
+            leveltext = this.level.toString() + "th"}
+        let levelElement = document.createElement("td")
+        row.appendChild(levelElement)
+        levelElement.innerHTML = leveltext
+
+        let castingElement = document.createElement("td")
+        row.appendChild(castingElement)
+        castingElement.innerHTML = this.castingtime
+
+        let concentrationElement = document.createElement("td")
+        row.appendChild(concentrationElement)
+        concentrationElement.innerHTML = this.concentration.toString()
+        
+        let schoolsElement = document.createElement("td")
+        row.appendChild(schoolsElement)
+        schoolsElement.innerHTML = listToString(this.schools as string[]) as string
+
+        return row
+    }
 }
