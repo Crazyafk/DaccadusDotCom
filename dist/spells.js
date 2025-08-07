@@ -410,7 +410,7 @@ var Spell = /** @class */ (function () {
         var componentsElement = document.createElement("td");
         row.appendChild(componentsElement);
         componentsElement.innerHTML = componenttext;
-        if (index) {
+        if (index != null) {
             row.setAttribute("data-index", index.toString());
         }
         return row;
