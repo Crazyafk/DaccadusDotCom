@@ -523,7 +523,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var spells, display, spell, spelllist, i, spell_1;
+        var spells, spell, spelllist, i, spell_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()
@@ -531,21 +531,31 @@ function onLoad() {
                 ];
                 case 1:
                     spells = _a.sent();
-                    display = document.getElementById("display");
                     spell = spells[7];
-                    spell.display(display);
+                    updateSelected(spell);
                     spelllist = document.getElementById("listtable");
                     for (i = 0; i < spells.length; i++) {
                         spell_1 = spells[i];
                         spell_1.listEntry(document, spelllist.querySelector("tbody"), i);
                     }
+                    //add selection event
                     $(spelllist).on('click', 'tbody tr', function (event) {
                         $(this).addClass('table-active').siblings().removeClass('table-active');
+                        updateSelected(spells[getSelected()]);
                     });
                     return [2 /*return*/];
             }
         });
     });
+}
+function getSelected() {
+    var selectedRow = document.querySelector(".table-active");
+    var index = parseInt(selectedRow.dataset.index);
+    return index;
+}
+function updateSelected(spell) {
+    var display = document.getElementById("display");
+    spell.display(display);
 }
 (0,_common__WEBPACK_IMPORTED_MODULE_1__.addHeader)(document);
 document.addEventListener("DOMContentLoaded", function () { onLoad(); }); //'await' is not allowed in script root, so let's wait for the HTML content to fully load.

@@ -6,9 +6,8 @@ async function onLoad()
     const spells: Spell[] = await Spell.readAll()
 
     //temp display testing before list is implemented
-    let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
     let spell = spells[7] as Spell
-    spell.display(display)
+    updateSelected(spell)
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
@@ -18,9 +17,24 @@ async function onLoad()
         spell.listEntry(document, spelllist.querySelector("tbody"), i)
     }
 
+    //add selection event
     $(spelllist).on('click', 'tbody tr', function(event: unknown) {
         $(this).addClass('table-active').siblings().removeClass('table-active');
+        updateSelected(spells[getSelected()])
     });
+}
+
+function getSelected(): number
+{
+    let selectedRow: HTMLTableRowElement = document.querySelector(".table-active") as HTMLTableRowElement
+    let index: number = parseInt(selectedRow.dataset.index)
+    return index
+}
+
+function updateSelected(spell: Spell)
+{
+    let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
+    spell.display(display)
 }
 
 addHeader(document);
