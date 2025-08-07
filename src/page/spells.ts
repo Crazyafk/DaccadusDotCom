@@ -1,13 +1,30 @@
 import { Spell } from '../spell';
-import { addHeader } from '../common';
+import { addHeader, getRootURL } from '../common';
 
 async function onLoad()
 {
     const spells: Spell[] = await Spell.readAll()
 
-    //temp display testing before list is implemented
-    let spell = spells[7] as Spell
-    updateSelected(spell)
+    //Get URL Parameters
+    const paramsString: string = window.location.search;
+    const searchParams: URLSearchParams = new URLSearchParams(paramsString);
+    const selectedSpellString: string = searchParams.get("spell")
+
+    //Select Initial Spell
+    if(selectedSpellString)
+    {
+        let spell: Spell | null = spells.find((element) => element.name == selectedSpellString)
+        if(spell)
+        {
+            updateSelected(spell)
+        }else{ //Default, url param invalid.
+            console.error("URL Spell Parameter Invalid, Defaulting...")
+            updateSelected(spells[0])
+        }
+        
+    }else{ //Default, no url param given
+        updateSelected(spells[0])
+    }
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
@@ -27,6 +44,7 @@ async function onLoad()
     });
 }
 
+// Return the index of the spell row with the "table-active" class
 function getSelected(): number
 {
     let selectedRow: HTMLTableRowElement = document.querySelector(".table-active") as HTMLTableRowElement
@@ -34,10 +52,17 @@ function getSelected(): number
     return index
 }
 
+// Select the given spell, displaying it.
 function updateSelected(spell: Spell)
 {
+    // Display
     let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
     spell.display(display)
+
+    // Update URL
+    const url = new URL((getRootURL() + "spells.html") as string);
+    url.searchParams.set("spell", spell.name);
+    history.pushState({}, "", url);
 }
 
 addHeader(document);
