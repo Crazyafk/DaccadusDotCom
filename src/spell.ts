@@ -152,7 +152,8 @@ export class Spell
     }
 
     // Append a <tr> element to the table given, containing the spell's basic details.
-    public listEntry(document: Document, table: HTMLElement) : HTMLTableRowElement
+    // if index is given, adds it as a 'data-index' attribute to the row.
+    public listEntry(document: Document, table: HTMLElement, index?: number) : HTMLTableRowElement
     {
         let row = document.createElement("tr") as HTMLTableRowElement
         table.appendChild(row)
@@ -195,6 +196,11 @@ export class Spell
         let componentsElement = document.createElement("td")
         row.appendChild(componentsElement)
         componentsElement.innerHTML = componenttext
+
+        if(index)
+        {
+            row.setAttribute("data-index", index.toString())
+        }
 
         return row
     }

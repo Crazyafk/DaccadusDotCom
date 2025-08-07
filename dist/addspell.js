@@ -364,7 +364,8 @@ var Spell = /** @class */ (function () {
         displayElement.querySelector("#concentration").innerHTML = concentrationtext;
     };
     // Append a <tr> element to the table given, containing the spell's basic details.
-    Spell.prototype.listEntry = function (document, table) {
+    // if index is given, adds it as a 'data-index' attribute to the row.
+    Spell.prototype.listEntry = function (document, table, index) {
         var row = document.createElement("tr");
         table.appendChild(row);
         var nameElement = document.createElement("th");
@@ -409,6 +410,9 @@ var Spell = /** @class */ (function () {
         var componentsElement = document.createElement("td");
         row.appendChild(componentsElement);
         componentsElement.innerHTML = componenttext;
+        if (index) {
+            row.setAttribute("data-index", index.toString());
+        }
         return row;
     };
     return Spell;

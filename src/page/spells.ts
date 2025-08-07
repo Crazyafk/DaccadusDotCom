@@ -15,7 +15,7 @@ async function onLoad()
     for(let i = 0; i < spells.length; i++)
     {
         let spell: Spell = spells[i]
-        spell.listEntry(document, spelllist.querySelector("tbody"))
+        spell.listEntry(document, spelllist.querySelector("tbody"), i)
     }
 
     $(spelllist).on('click', 'tbody tr', function(event: unknown) {
