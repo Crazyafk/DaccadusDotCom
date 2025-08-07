@@ -21,7 +21,7 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 - [x] General Spell List page and layout
 - [x] Spell Full Display (when selected)
 - [x] Spell Row Display (when in list)
-- [ ] URL params, to make it possible to link to a spell
+- [x] URL params, to make it possible to link to a spell
 
 ## Phase 4: Domain Publishing
 - [ ] Purchase and Publish to Domain
