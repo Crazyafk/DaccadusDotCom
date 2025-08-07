@@ -17,6 +17,10 @@ async function onLoad()
         let spell: Spell = spells[i]
         spell.listEntry(document, spelllist.querySelector("tbody"))
     }
+
+    $(spelllist).on('click', 'tbody tr', function(event: unknown) {
+        $(this).addClass('table-active').siblings().removeClass('table-active');
+    });
 }
 
 addHeader(document);

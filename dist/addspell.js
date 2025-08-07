@@ -98,7 +98,6 @@ function listToString(list) {
     for (var i = 0; i < list.length; i++) {
         var isLast = i == list.length - 1;
         result = result.concat(list[i]);
-        console.log(result);
         if (!isLast) {
             result = result.concat(", ");
         }

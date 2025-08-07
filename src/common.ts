@@ -49,7 +49,6 @@ export function listToString(list: string[]): String
     {
         let isLast: boolean = i == list.length - 1
         result = result.concat(list[i])
-        console.log(result)
         if(!isLast){result = result.concat(", ")}
     }
     return(result)

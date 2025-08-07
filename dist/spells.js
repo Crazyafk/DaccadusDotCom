@@ -98,7 +98,6 @@ function listToString(list) {
     for (var i = 0; i < list.length; i++) {
         var isLast = i == list.length - 1;
         result = result.concat(list[i]);
-        console.log(result);
         if (!isLast) {
             result = result.concat(", ");
         }
@@ -536,6 +535,9 @@ function onLoad() {
                         spell_1 = spells[i];
                         spell_1.listEntry(document, spelllist.querySelector("tbody"));
                     }
+                    $(spelllist).on('click', 'tbody tr', function (event) {
+                        $(this).addClass('table-active').siblings().removeClass('table-active');
+                    });
                     return [2 /*return*/];
             }
         });
