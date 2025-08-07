@@ -18,6 +18,7 @@ async function onLoad()
         {
             updateSelected(spell)
         }else{ //Default, url param invalid.
+            console.error("URL Spell Parameter Invalid, Defaulting...")
             updateSelected(spells[0])
         }
         
