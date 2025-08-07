@@ -19,8 +19,11 @@ async function onLoad()
 
     //add selection event
     $(spelllist).on('click', 'tbody tr', function(event: unknown) {
-        $(this).addClass('table-active').siblings().removeClass('table-active');
-        updateSelected(spells[getSelected()])
+        if($(this).is('[data-index]'))    //Is Data Row, Not header
+        {
+            $(this).addClass('table-active').siblings().removeClass('table-active');
+            updateSelected(spells[getSelected()])
+        }
     });
 }
 
