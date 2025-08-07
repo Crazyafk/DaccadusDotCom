@@ -523,20 +523,34 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var spells, spell, spelllist, i, spell_1;
+        var spells, paramsString, searchParams, selectedSpellString, spell, spelllist, i, spell;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()
-                    //temp display testing before list is implemented
+                    //Get URL Parameters
                 ];
                 case 1:
                     spells = _a.sent();
-                    spell = spells[7];
-                    updateSelected(spell);
+                    paramsString = window.location.search;
+                    searchParams = new URLSearchParams(paramsString);
+                    selectedSpellString = searchParams.get("spell");
+                    //Select Initial Spell
+                    if (selectedSpellString) {
+                        spell = spells.find(function (element) { return element.name == selectedSpellString; });
+                        if (spell) {
+                            updateSelected(spell);
+                        }
+                        else { //Default, url param invalid.
+                            updateSelected(spells[0]);
+                        }
+                    }
+                    else { //Default, no url param given
+                        updateSelected(spells[0]);
+                    }
                     spelllist = document.getElementById("listtable");
                     for (i = 0; i < spells.length; i++) {
-                        spell_1 = spells[i];
-                        spell_1.listEntry(document, spelllist.querySelector("tbody"), i);
+                        spell = spells[i];
+                        spell.listEntry(document, spelllist.querySelector("tbody"), i);
                     }
                     //add selection event
                     $(spelllist).on('click', 'tbody tr', function (event) {
@@ -551,11 +565,13 @@ function onLoad() {
         });
     });
 }
+// Return the index of the spell row with the "table-active" class
 function getSelected() {
     var selectedRow = document.querySelector(".table-active");
     var index = parseInt(selectedRow.dataset.index);
     return index;
 }
+// Select the given spell, displaying it.
 function updateSelected(spell) {
     var display = document.getElementById("display");
     spell.display(display);

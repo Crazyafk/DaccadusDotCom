@@ -5,9 +5,25 @@ async function onLoad()
 {
     const spells: Spell[] = await Spell.readAll()
 
-    //temp display testing before list is implemented
-    let spell = spells[7] as Spell
-    updateSelected(spell)
+    //Get URL Parameters
+    const paramsString: string = window.location.search;
+    const searchParams: URLSearchParams = new URLSearchParams(paramsString);
+    const selectedSpellString: string = searchParams.get("spell")
+
+    //Select Initial Spell
+    if(selectedSpellString)
+    {
+        let spell: Spell | null = spells.find((element) => element.name == selectedSpellString)
+        if(spell)
+        {
+            updateSelected(spell)
+        }else{ //Default, url param invalid.
+            updateSelected(spells[0])
+        }
+        
+    }else{ //Default, no url param given
+        updateSelected(spells[0])
+    }
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
