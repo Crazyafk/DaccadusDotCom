@@ -1,5 +1,5 @@
 # Link to Site:
-https://crazyafk.github.io/DaccadusDotCom/
+http://daccadus.com
 
 # Contribution Guide:
 https://github.com/Crazyafk/DaccadusDotCom/wiki/Contribution
@@ -24,7 +24,7 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 - [x] URL params, to make it possible to link to a spell
 
 ## Phase 4: Domain Publishing
-- [ ] Purchase and Publish to Domain
+- [x] Purchase and Publish to Domain
 - [ ] Test Fully in new Environment
 - [ ] Change any URLs in README or wiki pages
 
