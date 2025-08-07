@@ -151,6 +151,7 @@ export class Spell
         displayElement.querySelector("#concentration").innerHTML = concentrationtext
     }
 
+    // Append a <tr> element to the table given, containing the spell's basic details.
     public listEntry(document: Document, table: HTMLElement) : HTMLTableRowElement
     {
         let row = document.createElement("tr") as HTMLTableRowElement
