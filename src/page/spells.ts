@@ -1,5 +1,5 @@
 import { Spell } from '../spell';
-import { addHeader } from '../common';
+import { addHeader, getRootURL } from '../common';
 
 async function onLoad()
 {
@@ -54,8 +54,14 @@ function getSelected(): number
 // Select the given spell, displaying it.
 function updateSelected(spell: Spell)
 {
+    // Display
     let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
     spell.display(display)
+
+    // Update URL
+    const url = new URL((getRootURL() + "spells.html") as string);
+    url.searchParams.set("spell", spell.name);
+    history.pushState({}, "", url);
 }
 
 addHeader(document);

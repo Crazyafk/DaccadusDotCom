@@ -573,8 +573,13 @@ function getSelected() {
 }
 // Select the given spell, displaying it.
 function updateSelected(spell) {
+    // Display
     var display = document.getElementById("display");
     spell.display(display);
+    // Update URL
+    var url = new URL(((0,_common__WEBPACK_IMPORTED_MODULE_1__.getRootURL)() + "spells.html"));
+    url.searchParams.set("spell", spell.name);
+    history.pushState({}, "", url);
 }
 (0,_common__WEBPACK_IMPORTED_MODULE_1__.addHeader)(document);
 document.addEventListener("DOMContentLoaded", function () { onLoad(); }); //'await' is not allowed in script root, so let's wait for the HTML content to fully load.
