@@ -27,6 +27,7 @@ async function onLoad()
     });
 }
 
+// Return the index of the spell row with the "table-active" class
 function getSelected(): number
 {
     let selectedRow: HTMLTableRowElement = document.querySelector(".table-active") as HTMLTableRowElement
@@ -34,6 +35,7 @@ function getSelected(): number
     return index
 }
 
+// Select the given spell, displaying it.
 function updateSelected(spell: Spell)
 {
     let display: HTMLDivElement = document.getElementById("display") as HTMLDivElement
