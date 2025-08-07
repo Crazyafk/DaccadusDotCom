@@ -98,7 +98,6 @@ function listToString(list) {
     for (var i = 0; i < list.length; i++) {
         var isLast = i == list.length - 1;
         result = result.concat(list[i]);
-        console.log(result);
         if (!isLast) {
             result = result.concat(", ");
         }
@@ -364,7 +363,9 @@ var Spell = /** @class */ (function () {
         }
         displayElement.querySelector("#concentration").innerHTML = concentrationtext;
     };
-    Spell.prototype.listEntry = function (document, table) {
+    // Append a <tr> element to the table given, containing the spell's basic details.
+    // if index is given, adds it as a 'data-index' attribute to the row.
+    Spell.prototype.listEntry = function (document, table, index) {
         var row = document.createElement("tr");
         table.appendChild(row);
         var nameElement = document.createElement("th");
@@ -399,6 +400,19 @@ var Spell = /** @class */ (function () {
         var schoolsElement = document.createElement("td");
         row.appendChild(schoolsElement);
         schoolsElement.innerHTML = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.schools);
+        var componenttext = "";
+        if (this.components.length == 0) {
+            componenttext = "None";
+        } //Edge case for no components, as in 'A Fresh Point of View'
+        else {
+            componenttext = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.components);
+        }
+        var componentsElement = document.createElement("td");
+        row.appendChild(componentsElement);
+        componentsElement.innerHTML = componenttext;
+        if (index != null) {
+            row.setAttribute("data-index", index.toString());
+        }
         return row;
     };
     return Spell;
@@ -509,7 +523,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var spells, display, spell, spelllist, i, spell_1;
+        var spells, spell, spelllist, i, spell_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()
@@ -517,18 +531,34 @@ function onLoad() {
                 ];
                 case 1:
                     spells = _a.sent();
-                    display = document.getElementById("display");
                     spell = spells[7];
-                    spell.display(display);
+                    updateSelected(spell);
                     spelllist = document.getElementById("listtable");
                     for (i = 0; i < spells.length; i++) {
                         spell_1 = spells[i];
-                        spell_1.listEntry(document, spelllist.querySelector("tbody"));
+                        spell_1.listEntry(document, spelllist.querySelector("tbody"), i);
                     }
+                    //add selection event
+                    $(spelllist).on('click', 'tbody tr', function (event) {
+                        if ($(this).is('[data-index]')) //Is Data Row, Not header
+                         {
+                            $(this).addClass('table-active').siblings().removeClass('table-active');
+                            updateSelected(spells[getSelected()]);
+                        }
+                    });
                     return [2 /*return*/];
             }
         });
     });
+}
+function getSelected() {
+    var selectedRow = document.querySelector(".table-active");
+    var index = parseInt(selectedRow.dataset.index);
+    return index;
+}
+function updateSelected(spell) {
+    var display = document.getElementById("display");
+    spell.display(display);
 }
 (0,_common__WEBPACK_IMPORTED_MODULE_1__.addHeader)(document);
 document.addEventListener("DOMContentLoaded", function () { onLoad(); }); //'await' is not allowed in script root, so let's wait for the HTML content to fully load.

@@ -98,7 +98,6 @@ function listToString(list) {
     for (var i = 0; i < list.length; i++) {
         var isLast = i == list.length - 1;
         result = result.concat(list[i]);
-        console.log(result);
         if (!isLast) {
             result = result.concat(", ");
         }
@@ -364,7 +363,9 @@ var Spell = /** @class */ (function () {
         }
         displayElement.querySelector("#concentration").innerHTML = concentrationtext;
     };
-    Spell.prototype.listEntry = function (document, table) {
+    // Append a <tr> element to the table given, containing the spell's basic details.
+    // if index is given, adds it as a 'data-index' attribute to the row.
+    Spell.prototype.listEntry = function (document, table, index) {
         var row = document.createElement("tr");
         table.appendChild(row);
         var nameElement = document.createElement("th");
@@ -399,6 +400,19 @@ var Spell = /** @class */ (function () {
         var schoolsElement = document.createElement("td");
         row.appendChild(schoolsElement);
         schoolsElement.innerHTML = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.schools);
+        var componenttext = "";
+        if (this.components.length == 0) {
+            componenttext = "None";
+        } //Edge case for no components, as in 'A Fresh Point of View'
+        else {
+            componenttext = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.components);
+        }
+        var componentsElement = document.createElement("td");
+        row.appendChild(componentsElement);
+        componentsElement.innerHTML = componenttext;
+        if (index != null) {
+            row.setAttribute("data-index", index.toString());
+        }
         return row;
     };
     return Spell;
