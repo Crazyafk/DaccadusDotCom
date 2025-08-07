@@ -189,6 +189,13 @@ export class Spell
         row.appendChild(schoolsElement)
         schoolsElement.innerHTML = listToString(this.schools as string[]) as string
 
+        let componenttext: string = ""
+        if(this.components.length == 0){componenttext = "None"} //Edge case for no components, as in 'A Fresh Point of View'
+        else{componenttext = listToString(this.components as string[]) as string}
+        let componentsElement = document.createElement("td")
+        row.appendChild(componentsElement)
+        componentsElement.innerHTML = componenttext
+
         return row
     }
 }

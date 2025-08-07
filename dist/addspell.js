@@ -364,6 +364,7 @@ var Spell = /** @class */ (function () {
         }
         displayElement.querySelector("#concentration").innerHTML = concentrationtext;
     };
+    // Append a <tr> element to the table given, containing the spell's basic details.
     Spell.prototype.listEntry = function (document, table) {
         var row = document.createElement("tr");
         table.appendChild(row);
@@ -399,6 +400,16 @@ var Spell = /** @class */ (function () {
         var schoolsElement = document.createElement("td");
         row.appendChild(schoolsElement);
         schoolsElement.innerHTML = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.schools);
+        var componenttext = "";
+        if (this.components.length == 0) {
+            componenttext = "None";
+        } //Edge case for no components, as in 'A Fresh Point of View'
+        else {
+            componenttext = (0,_common__WEBPACK_IMPORTED_MODULE_0__.listToString)(this.components);
+        }
+        var componentsElement = document.createElement("td");
+        row.appendChild(componentsElement);
+        componentsElement.innerHTML = componenttext;
         return row;
     };
     return Spell;
