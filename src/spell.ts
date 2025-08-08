@@ -178,9 +178,15 @@ export class Spell
         row.appendChild(levelElement)
         levelElement.innerHTML = leveltext
 
+        const isReaction : RegExp = /\d◉\s*\S+/ //x◉, followed by any non-space character (with optional whitespace before)
+        let castingText : string = this.castingtime
+        if(isReaction.test(castingText))
+        {
+            castingText = castingText.substring(0, 2) + "<i>R</i>"
+        }
         let castingElement = document.createElement("td")
         row.appendChild(castingElement)
-        castingElement.innerHTML = this.castingtime
+        castingElement.innerHTML = castingText
 
         let concentrationElement = document.createElement("td")
         row.appendChild(concentrationElement)

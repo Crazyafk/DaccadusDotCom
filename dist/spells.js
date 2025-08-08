@@ -393,9 +393,14 @@ var Spell = /** @class */ (function () {
         var levelElement = document.createElement("td");
         row.appendChild(levelElement);
         levelElement.innerHTML = leveltext;
+        var isReaction = /\d◉\s*\S+/; //x◉, followed by any non-space character (with optional whitespace before)
+        var castingText = this.castingtime;
+        if (isReaction.test(castingText)) {
+            castingText = castingText.substring(0, 2) + "<i>R</i>";
+        }
         var castingElement = document.createElement("td");
         row.appendChild(castingElement);
-        castingElement.innerHTML = this.castingtime;
+        castingElement.innerHTML = castingText;
         var concentrationElement = document.createElement("td");
         row.appendChild(concentrationElement);
         concentrationElement.innerHTML = this.concentration.toString();
