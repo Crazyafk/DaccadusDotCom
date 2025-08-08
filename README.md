@@ -25,8 +25,8 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 
 ## Phase 4: Domain Publishing
 - [x] Purchase and Publish to Domain
-- [ ] Test Fully in new Environment
-- [ ] Change any URLs in README or wiki pages
+- [x] Test Fully in new Environment
+- [x] Change any URLs in README or wiki pages
 
 ## Phase 5: Advanced Functionality
 - [ ] Filtering
