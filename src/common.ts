@@ -6,10 +6,10 @@ export function getRootURL(): String
     let full_url: String = window.location.href
 
     const possible_roots: String[] = [
-        'https://daccadus.com',
-        'https://www.daccadus.com',
-        'http://daccadus.com',
-        'http://www.daccadus.com',
+        'https://daccadus.com/',
+        'https://www.daccadus.com/',
+        'http://daccadus.com/',
+        'http://www.daccadus.com/',
         'http://127.0.0.1:5500/',
         'https://crazyafk.github.io/DaccadusDotCom/'
         ]
