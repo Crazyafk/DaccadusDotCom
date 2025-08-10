@@ -54,10 +54,10 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 function getRootURL() {
     var full_url = window.location.href;
     var possible_roots = [
-        'https://daccadus.com',
-        'https://www.daccadus.com',
-        'http://daccadus.com',
-        'http://www.daccadus.com',
+        'https://daccadus.com/',
+        'https://www.daccadus.com/',
+        'http://daccadus.com/',
+        'http://www.daccadus.com/',
         'http://127.0.0.1:5500/',
         'https://crazyafk.github.io/DaccadusDotCom/'
     ];
