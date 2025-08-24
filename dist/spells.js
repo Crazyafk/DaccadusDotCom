@@ -605,6 +605,15 @@ function onLoad() {
                     }
                     //List
                     updateList();
+                    //Add Button Events
+                    $("#searchbutton").on("click", function onSearchPressed() {
+                        var searchString = $("#search").val();
+                        // Update URL
+                        var url = new URL((window.location.href));
+                        url.searchParams.set("search", searchString);
+                        history.pushState({}, "", url);
+                        updateList();
+                    });
                     return [2 /*return*/];
             }
         });
@@ -618,6 +627,8 @@ function updateList() {
     filtered_spells = filter.apply(all_spells);
     //list
     var spelllist = document.getElementById("listtable");
+    //purge of any existing children by assigning only table header to inner html. it's ugly but it works.
+    spelllist.innerHTML = '<tr><th scope="col">Name</th><th scope="col">Level</th><th scope="col">Casting</th><th scope="col">C.</th><th scope="col">Schools</th><th scope="col">Components</th></tr>';
     for (var i = 0; i < filtered_spells.length; i++) {
         var spell = filtered_spells[i];
         spell.listEntry(document, spelllist.querySelector("tbody"), i);

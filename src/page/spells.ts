@@ -14,7 +14,7 @@ async function onLoad()
     const paramsString: string = window.location.search;
     const searchParams: URLSearchParams = new URLSearchParams(paramsString);
     const selectedSpellString: string = searchParams.get("spell")
-    
+
     if(selectedSpellString)
     {
         let spell: Spell | null = all_spells.find((element) => element.name == selectedSpellString)
@@ -32,6 +32,19 @@ async function onLoad()
 
     //List
     updateList()
+
+    //Add Button Events
+    $("#searchbutton").on("click", function onSearchPressed()
+    {
+        let searchString: string = $("#search").val() as string
+
+        // Update URL
+        const url = new URL((window.location.href) as string);
+        url.searchParams.set("search", searchString);
+        history.pushState({}, "", url);
+
+        updateList()
+    })
 }
 
 // Update the list, including generating the filter object from url and applying it.
@@ -44,6 +57,10 @@ function updateList()
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
+    
+    //purge of any existing children by assigning only table header to inner html. it's ugly but it works.
+    spelllist.innerHTML = '<tr><th scope="col">Name</th><th scope="col">Level</th><th scope="col">Casting</th><th scope="col">C.</th><th scope="col">Schools</th><th scope="col">Components</th></tr>'
+
     for(let i = 0; i < filtered_spells.length; i++)
     {
         let spell: Spell = filtered_spells[i]
