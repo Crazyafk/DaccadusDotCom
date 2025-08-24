@@ -638,7 +638,7 @@ function updateSelected(spell) {
     var display = document.getElementById("display");
     spell.display(display);
     // Update URL
-    var url = new URL(((0,_common__WEBPACK_IMPORTED_MODULE_1__.getRootURL)() + "spells.html"));
+    var url = new URL((window.location.href));
     url.searchParams.set("spell", spell.name);
     history.pushState({}, "", url);
 }

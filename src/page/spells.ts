@@ -70,7 +70,7 @@ function updateSelected(spell: Spell)
     spell.display(display)
 
     // Update URL
-    const url = new URL((getRootURL() + "spells.html") as string);
+    const url = new URL((window.location.href) as string);
     url.searchParams.set("spell", spell.name);
     history.pushState({}, "", url);
 }
