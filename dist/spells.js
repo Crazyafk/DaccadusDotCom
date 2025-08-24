@@ -432,6 +432,45 @@ var Spell = /** @class */ (function () {
 
 
 
+/***/ }),
+/* 4 */,
+/* 5 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SpellFilter: () => (/* binding */ SpellFilter)
+/* harmony export */ });
+var SpellFilter = /** @class */ (function () {
+    //Standard Constructor, using all values
+    function SpellFilter(search) {
+        this.search = search;
+    }
+    //Construct from URL parameters
+    SpellFilter.fromURL = function (url) {
+        var search = url.get("search");
+        return new SpellFilter(search);
+    };
+    //Apply all filters
+    SpellFilter.prototype.apply = function (raw_list) {
+        var filtered_list = [];
+        for (var _i = 0, raw_list_1 = raw_list; _i < raw_list_1.length; _i++) {
+            var spell = raw_list_1[_i];
+            //Does name contain search string? (case insensitive)
+            if (this.search) {
+                if (!spell.name.toLowerCase().includes(this.search.toLowerCase())) {
+                    continue;
+                }
+            }
+            filtered_list.push(spell);
+        }
+        return filtered_list;
+    };
+    return SpellFilter;
+}());
+
+
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -495,6 +534,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _spell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _spellfilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -533,36 +573,44 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 };
 
 
+
+var all_spells = [];
+var filtered_spells = [];
+var filter;
 function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var spells, paramsString, searchParams, selectedSpellString, spell, spelllist, i, spell;
+        var paramsString, searchParams, selectedSpellString, spell, spelllist, i, spell;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()
                     //Get URL Parameters
                 ];
                 case 1:
-                    spells = _a.sent();
+                    all_spells = _a.sent();
                     paramsString = window.location.search;
                     searchParams = new URLSearchParams(paramsString);
                     selectedSpellString = searchParams.get("spell");
+                    filter = _spellfilter__WEBPACK_IMPORTED_MODULE_2__.SpellFilter.fromURL(searchParams);
+                    console.log(filter);
+                    //Apply Filters
+                    filtered_spells = filter.apply(all_spells);
                     //Select Initial Spell
                     if (selectedSpellString) {
-                        spell = spells.find(function (element) { return element.name == selectedSpellString; });
+                        spell = all_spells.find(function (element) { return element.name == selectedSpellString; });
                         if (spell) {
                             updateSelected(spell);
                         }
                         else { //Default, url param invalid.
                             console.error("URL Spell Parameter Invalid, Defaulting...");
-                            updateSelected(spells[0]);
+                            updateSelected(all_spells[0]);
                         }
                     }
                     else { //Default, no url param given
-                        updateSelected(spells[0]);
+                        updateSelected(all_spells[0]);
                     }
                     spelllist = document.getElementById("listtable");
-                    for (i = 0; i < spells.length; i++) {
-                        spell = spells[i];
+                    for (i = 0; i < filtered_spells.length; i++) {
+                        spell = filtered_spells[i];
                         spell.listEntry(document, spelllist.querySelector("tbody"), i);
                     }
                     //add selection event
@@ -570,7 +618,7 @@ function onLoad() {
                         if ($(this).is('[data-index]')) //Is Data Row, Not header
                          {
                             $(this).addClass('table-active').siblings().removeClass('table-active');
-                            updateSelected(spells[getSelected()]);
+                            updateSelected(filtered_spells[getSelected()]);
                         }
                     });
                     return [2 /*return*/];

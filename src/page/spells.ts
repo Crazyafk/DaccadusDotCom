@@ -1,36 +1,46 @@
 import { Spell } from '../spell';
 import { addHeader, getRootURL } from '../common';
+import { SpellFilter } from '../spellfilter';
+
+let all_spells: Spell[] = []
+let filtered_spells: Spell[] = []
+let filter: SpellFilter
 
 async function onLoad()
 {
-    const spells: Spell[] = await Spell.readAll()
+    all_spells = await Spell.readAll()
 
     //Get URL Parameters
     const paramsString: string = window.location.search;
     const searchParams: URLSearchParams = new URLSearchParams(paramsString);
     const selectedSpellString: string = searchParams.get("spell")
+    filter = SpellFilter.fromURL(searchParams)
+    console.log(filter)
+
+    //Apply Filters
+    filtered_spells = filter.apply(all_spells)
 
     //Select Initial Spell
     if(selectedSpellString)
     {
-        let spell: Spell | null = spells.find((element) => element.name == selectedSpellString)
+        let spell: Spell | null = all_spells.find((element) => element.name == selectedSpellString)
         if(spell)
         {
             updateSelected(spell)
         }else{ //Default, url param invalid.
             console.error("URL Spell Parameter Invalid, Defaulting...")
-            updateSelected(spells[0])
+            updateSelected(all_spells[0])
         }
         
     }else{ //Default, no url param given
-        updateSelected(spells[0])
+        updateSelected(all_spells[0])
     }
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
-    for(let i = 0; i < spells.length; i++)
+    for(let i = 0; i < filtered_spells.length; i++)
     {
-        let spell: Spell = spells[i]
+        let spell: Spell = filtered_spells[i]
         spell.listEntry(document, spelllist.querySelector("tbody"), i)
     }
 
@@ -39,7 +49,7 @@ async function onLoad()
         if($(this).is('[data-index]'))    //Is Data Row, Not header
         {
             $(this).addClass('table-active').siblings().removeClass('table-active');
-            updateSelected(spells[getSelected()])
+            updateSelected(filtered_spells[getSelected()])
         }
     });
 }
