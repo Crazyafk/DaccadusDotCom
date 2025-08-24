@@ -1,36 +1,69 @@
 import { Spell } from '../spell';
 import { addHeader, getRootURL } from '../common';
+import { SpellFilter } from '../spellfilter';
+
+let all_spells: Spell[] = []
+let filtered_spells: Spell[] = []
+let filter: SpellFilter
 
 async function onLoad()
 {
-    const spells: Spell[] = await Spell.readAll()
+    all_spells = await Spell.readAll()
 
-    //Get URL Parameters
+    //Select Initial Spell
     const paramsString: string = window.location.search;
     const searchParams: URLSearchParams = new URLSearchParams(paramsString);
     const selectedSpellString: string = searchParams.get("spell")
 
-    //Select Initial Spell
     if(selectedSpellString)
     {
-        let spell: Spell | null = spells.find((element) => element.name == selectedSpellString)
+        let spell: Spell | null = all_spells.find((element) => element.name == selectedSpellString)
         if(spell)
         {
             updateSelected(spell)
         }else{ //Default, url param invalid.
             console.error("URL Spell Parameter Invalid, Defaulting...")
-            updateSelected(spells[0])
+            updateSelected(all_spells[0])
         }
         
     }else{ //Default, no url param given
-        updateSelected(spells[0])
+        updateSelected(all_spells[0])
     }
+
+    //List
+    updateList()
+
+    //Add Button Events
+    $("#searchbutton").on("click", function onSearchPressed()
+    {
+        let searchString: string = $("#search").val() as string
+
+        // Update URL
+        const url = new URL((window.location.href) as string);
+        url.searchParams.set("search", searchString);
+        history.pushState({}, "", url);
+
+        updateList()
+    })
+}
+
+// Update the list, including generating the filter object from url and applying it.
+function updateList()
+{
+    const paramsString: string = window.location.search;
+    const searchParams: URLSearchParams = new URLSearchParams(paramsString);
+    filter = SpellFilter.fromURL(searchParams)
+    filtered_spells = filter.apply(all_spells)
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
-    for(let i = 0; i < spells.length; i++)
+    
+    //purge of any existing children by assigning only table header to inner html. it's ugly but it works.
+    spelllist.innerHTML = '<tr><th scope="col">Name</th><th scope="col">Level</th><th scope="col">Casting</th><th scope="col">C.</th><th scope="col">Schools</th><th scope="col">Components</th></tr>'
+
+    for(let i = 0; i < filtered_spells.length; i++)
     {
-        let spell: Spell = spells[i]
+        let spell: Spell = filtered_spells[i]
         spell.listEntry(document, spelllist.querySelector("tbody"), i)
     }
 
@@ -39,7 +72,7 @@ async function onLoad()
         if($(this).is('[data-index]'))    //Is Data Row, Not header
         {
             $(this).addClass('table-active').siblings().removeClass('table-active');
-            updateSelected(spells[getSelected()])
+            updateSelected(filtered_spells[getSelected()])
         }
     });
 }
@@ -60,7 +93,7 @@ function updateSelected(spell: Spell)
     spell.display(display)
 
     // Update URL
-    const url = new URL((getRootURL() + "spells.html") as string);
+    const url = new URL((window.location.href) as string);
     url.searchParams.set("spell", spell.name);
     history.pushState({}, "", url);
 }
