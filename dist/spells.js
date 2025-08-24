@@ -579,22 +579,17 @@ var filtered_spells = [];
 var filter;
 function onLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var paramsString, searchParams, selectedSpellString, spell, spelllist, i, spell;
+        var paramsString, searchParams, selectedSpellString, spell;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, _spell__WEBPACK_IMPORTED_MODULE_0__.Spell.readAll()
-                    //Get URL Parameters
+                    //Select Initial Spell
                 ];
                 case 1:
                     all_spells = _a.sent();
                     paramsString = window.location.search;
                     searchParams = new URLSearchParams(paramsString);
                     selectedSpellString = searchParams.get("spell");
-                    filter = _spellfilter__WEBPACK_IMPORTED_MODULE_2__.SpellFilter.fromURL(searchParams);
-                    console.log(filter);
-                    //Apply Filters
-                    filtered_spells = filter.apply(all_spells);
-                    //Select Initial Spell
                     if (selectedSpellString) {
                         spell = all_spells.find(function (element) { return element.name == selectedSpellString; });
                         if (spell) {
@@ -608,22 +603,32 @@ function onLoad() {
                     else { //Default, no url param given
                         updateSelected(all_spells[0]);
                     }
-                    spelllist = document.getElementById("listtable");
-                    for (i = 0; i < filtered_spells.length; i++) {
-                        spell = filtered_spells[i];
-                        spell.listEntry(document, spelllist.querySelector("tbody"), i);
-                    }
-                    //add selection event
-                    $(spelllist).on('click', 'tbody tr', function (event) {
-                        if ($(this).is('[data-index]')) //Is Data Row, Not header
-                         {
-                            $(this).addClass('table-active').siblings().removeClass('table-active');
-                            updateSelected(filtered_spells[getSelected()]);
-                        }
-                    });
+                    //List
+                    updateList();
                     return [2 /*return*/];
             }
         });
+    });
+}
+// Update the list, including generating the filter object from url and applying it.
+function updateList() {
+    var paramsString = window.location.search;
+    var searchParams = new URLSearchParams(paramsString);
+    filter = _spellfilter__WEBPACK_IMPORTED_MODULE_2__.SpellFilter.fromURL(searchParams);
+    filtered_spells = filter.apply(all_spells);
+    //list
+    var spelllist = document.getElementById("listtable");
+    for (var i = 0; i < filtered_spells.length; i++) {
+        var spell = filtered_spells[i];
+        spell.listEntry(document, spelllist.querySelector("tbody"), i);
+    }
+    //add selection event
+    $(spelllist).on('click', 'tbody tr', function (event) {
+        if ($(this).is('[data-index]')) //Is Data Row, Not header
+         {
+            $(this).addClass('table-active').siblings().removeClass('table-active');
+            updateSelected(filtered_spells[getSelected()]);
+        }
     });
 }
 // Return the index of the spell row with the "table-active" class

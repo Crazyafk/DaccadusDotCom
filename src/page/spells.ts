@@ -10,17 +10,11 @@ async function onLoad()
 {
     all_spells = await Spell.readAll()
 
-    //Get URL Parameters
+    //Select Initial Spell
     const paramsString: string = window.location.search;
     const searchParams: URLSearchParams = new URLSearchParams(paramsString);
     const selectedSpellString: string = searchParams.get("spell")
-    filter = SpellFilter.fromURL(searchParams)
-    console.log(filter)
-
-    //Apply Filters
-    filtered_spells = filter.apply(all_spells)
-
-    //Select Initial Spell
+    
     if(selectedSpellString)
     {
         let spell: Spell | null = all_spells.find((element) => element.name == selectedSpellString)
@@ -35,6 +29,18 @@ async function onLoad()
     }else{ //Default, no url param given
         updateSelected(all_spells[0])
     }
+
+    //List
+    updateList()
+}
+
+// Update the list, including generating the filter object from url and applying it.
+function updateList()
+{
+    const paramsString: string = window.location.search;
+    const searchParams: URLSearchParams = new URLSearchParams(paramsString);
+    filter = SpellFilter.fromURL(searchParams)
+    filtered_spells = filter.apply(all_spells)
 
     //list
     let spelllist: HTMLTableElement = document.getElementById("listtable") as HTMLTableElement
