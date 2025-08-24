@@ -1,5 +1,5 @@
 # Link to Site:
-http://daccadus.com
+https://daccadus.com
 
 # Contribution Guide:
 https://github.com/Crazyafk/DaccadusDotCom/wiki/Contribution
@@ -29,5 +29,6 @@ https://github.com/Crazyafk/DaccadusDotCom/wiki/Tech-Docs
 - [x] Change any URLs in README or wiki pages
 
 ## Phase 5: Advanced Functionality
+- [x] Searching
 - [ ] Filtering
 - [ ] Sorting
