@@ -82,16 +82,22 @@ export class Spell
         // Get Raw File List
         let index = await (await fetch(dir+'index.html')).text();
         let file_list = index.split('\n');
+        let promise_list: Promise<Response>[] = []
 
-        // Convert Raw File List into Spell Object List
+        // Convert Raw File List into Spell Promise List (send all requests before awaiting, for performance)
         for(var file_raw of file_list)
         {
             let file = file_raw.replace(/[\r\n]+/gm, "");                   //Trim \r
             if(file == "index.html" || file == ""){break;}                  //Remove invalid entries from list
 
-            let spell_response = await fetch(dir+file)                      //Fetch
-            let spell = JSON.parse(await spell_response.text()) as Spell;   //Process (Response -> string -> Spell)
-            spell = Object.assign(new Spell(), spell)                       //Reform object, to get around issue where deserialized json objects have no methods
+            promise_list.push(fetch(dir+file))                              //Fetch
+        }
+
+        // Await all promises and convert into Spell Object List
+        for(var spell_promise of promise_list)
+        {
+            let spell = JSON.parse(await (await spell_promise).text()) as Spell;    //Await and Process (Promise -> Response -> string -> Spell)
+            spell = Object.assign(new Spell(), spell)                               //Reform object, to get around issue where deserialized json objects have no methods
             output.push(spell);
         }
 
