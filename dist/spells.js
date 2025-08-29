@@ -443,13 +443,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var SpellFilter = /** @class */ (function () {
     //Standard Constructor, using all values
-    function SpellFilter(search) {
+    function SpellFilter(search, level) {
         this.search = search;
+        this.level = level;
     }
     //Construct from URL parameters
     SpellFilter.fromURL = function (url) {
         var search = url.get("search");
-        return new SpellFilter(search);
+        var level;
+        var level_raw = url.get("level");
+        if (level_raw == "All") {
+            level = null;
+        }
+        else {
+            level = Number.parseInt(level_raw);
+        }
+        return new SpellFilter(search, level);
     };
     //Apply all filters
     SpellFilter.prototype.apply = function (raw_list) {
@@ -459,6 +468,12 @@ var SpellFilter = /** @class */ (function () {
             //Does name contain search string? (case insensitive)
             if (this.search) {
                 if (!spell.name.toLowerCase().includes(this.search.toLowerCase())) {
+                    continue;
+                }
+            }
+            //Does level match?
+            if (this.level != null) {
+                if (!(spell.level == this.level)) {
                     continue;
                 }
             }
