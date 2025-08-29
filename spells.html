@@ -22,13 +22,34 @@
                             </button>
                         </div>
                         <div class="col-1 p-0">
-                            <div class="dropdown w-100 h-100">
-                                <button type="button" class="btn btn-secondary w-100 h-100 border-0 dropdown-toggle" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0px 32px 32px 0px;">
+                            <div class="dropstart w-100 h-100">
+                                <button type="button" class="btn btn-secondary w-100 h-100 border-0" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0px 32px 32px 0px;">
                                     <img src="filter-icon.svg" alt="filter" width="20" height="20">
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdown">
-                                    <li><a class="dropdown-item" href="#">filtering coming soon!</a></li>
-                                </ul>
+                                <div class="dropdown-menu" aria-labelledby="dropdown" style="width: 50vh;">
+                                    <form class="px-2">
+                                        <h6 class="dropdown-header">Spell Level</h6>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-3"><input type="radio" id="all" name="level" value="All" checked> <label for="all">All Levels</label></div>
+                                                <div class="col-3"><input type="radio" id="cantrip" name="level" value="0"> <label for="cantrip">Cantrip</label></div>
+                                                <div class="col-2"><input type="radio" id="1st" name="level" value="1"> <label for="1st">1st</label></div>
+                                                <div class="col-2"><input type="radio" id="2nd" name="level" value="2"> <label for="2nd">2nd</label></div>
+                                                <div class="col-2"><input type="radio" id="3rd" name="level" value="3"> <label for="3rd">3rd</label></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-2"><input type="radio" id="4th" name="level" value="4"> <label for="4th">4th</label></div>
+                                                <div class="col-2"><input type="radio" id="5th" name="level" value="5"> <label for="5th">5th</label></div>
+                                                <div class="col-2"><input type="radio" id="6th" name="level" value="6"> <label for="6th">6th</label></div>
+                                                <div class="col-2"><input type="radio" id="7th" name="level" value="7"> <label for="7th">7th</label></div>
+                                                <div class="col-2"><input type="radio" id="8th" name="level" value="8"> <label for="8th">8th</label></div>
+                                                <div class="col-2"><input type="radio" id="9th" name="level" value="9"> <label for="9th">9th</label></div>
+                                            </div>
+                                        </div>
+                                        <input type="reset" value="Reset">
+                                        <input type="submit" value="submit"></input>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
